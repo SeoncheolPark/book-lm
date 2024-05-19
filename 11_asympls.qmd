@@ -1,0 +1,115 @@
+---
+title: "Asymptotic Theory for Least Squares"
+---
+
+## Introduction
+
+::: {#thm-rss}
+## Random sampling assumption (\@Hansen2022 Definition 1.2)
+
+The variables $(Y_i, X_i)$ are a **random sample** if they are mutually independent and identically distributed (i.i.d.) across $i=1,\ldots, n$.
+:::
+
+::: {#thm-blp}
+## Best linear predictor 관련 assumption (\@Hansen2022 Assumption 2.1)
+
+1.  $E[Y^2]<\infty$
+2.  $E\|X\|^2 < \infty$
+3.  $Q_{XX} = E[XX^T]$ is positive definite
+
+이 가정의 처음 두 개는 $X$, $Y$가 유한한 평균과 분산, 공분산을 갖음을 의미한다. 세 번째는 $Q_{XX}$의 column들이 linearly independent하고 역행렬이 존재함을 보장한다.
+
+($Q_{XX}$가 positive definite일 때 linearly independence는 찾아볼 것)
+
+<!--
+positive definiteness와 linearly independent:
+https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
+-->
+
+:::
+
+위의 random sampling과 finite second moment assumption을 가져간채로 least squares estimation에 대한 assumption을 다시 정리한다. (\@Hansen2022 Assumption 7.1)
+
+1.  The variables $(Y_i, X_i)$, $i=1,\ldots, n$ are i.i.d.
+2.  $E[Y^2]<\infty$.
+3.  $E\|X\|^2<\infty$.
+4.  $Q_{XX} = E[XX^T]$ is positive definite.
+
+## Consistency of Least Squares Estimator
+
+이 절의 목표는 $\hat{\beta}$가 $\beta$에 consistent함을
+
+1.  weak law of large numbers (WLLN)
+2.  continuous mapping theorem (CMT)
+
+을 이용해 보이는 것이다. (\@Hansen2022 7.2)
+
+Derivation을 다음과 같은 요소들로 구성된다.
+
+1.  OLS estimatior가 sample moment들의 집합의 연속함수로 표현될 수 있다.
+2.  WLLN을 이용해 sample moments가 population moments에 converge in probability함을 보인다.
+3.  CMT를 이용해 연속함수에서 converges in probability가 보존됨을 보장한다
+
+그렇다면 먼저 OLS estimator를 다음과 같이 sample moments $\hat{Q}_{XX}=\frac{1}{n}\sum_{i=1}^{n} X_i X_i^{T}$와 $\hat{Q}_{XX}=\frac{1}{n}\sum_{i=1}^{n} X_i Y_i$의 함수로 쓸 수 있다.
+
+$$
+\hat{\beta} = \Big(\frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1} \Big(\frac{1}{n}\sum_{i=1}^n X_i Y_i \Big) = \hat{Q}_{XX}^{-1}\hat{Q}_{XY}
+$$
+
+$(Y_i, X_i)$가 mutually i.i.d. 라는 가정은 $(Y_i, X_i)$로 구성된, 예를 들면 $X_i X_i^{T}$와 $X_i Y_i$가 i.i.d.임을 의미한다. 이들은 또한 앞선 Assumption 7.1에 의해 finite expectation을 갖는다. 이러한 조건 하에서, $n\rightarrow \infty$일 때 WLLN은
+
+$$
+\hat{Q}_{XX} = \frac{1}{n}\sum_{i=1}^n X_i X_i^{T} \stackrel{p}{\rightarrow} E[XX^T] = Q_{XX}, \quad{} \hat{Q}_{XY} = \frac{1}{n}\sum_{i=1}^n X_i Y_i\stackrel{p}{\rightarrow} E[XY] = Q_{XY}.
+$$
+
+그 다음 continuous mapping theorem을 써서 $\hat{\beta} \rightarrow \beta$임을 보일 수 있다는 것이다. $n\rightarrow \infty$일 때,
+
+$$
+\hat{\beta} = \hat{Q}_{XX} ^{-1}\hat{Q}_{XY} \stackrel{p}{\rightarrow}Q_{XX}^{-1}Q_{XY} = \beta.
+$$
+
+Stochastic order notation으로 다음과 같이 쓸 수 있다.
+
+$$
+\hat{\beta} = \beta + o_p (1).
+$$
+
+## Asymptotic Normality
+
+Asymptotic normality를 다룰 때에는
+
+1.  먼저 estimator를 sample moment의 함수로 쓰는 것으로부터 시작한다.
+2.  그리고 그것들 중 하나가 zero-mean random vector의 sum으로 표현될 수 있고 이는 CLT를 적용 가능케 한다.
+
+우선 $\hat{\beta}- \beta = \hat{Q}_{XX}^{-1}\hat{Q}_{Xe}$라고 두자. 그리고 이를 $\sqrt{n}$에 곱하면 다음 표현을 얻을 수 있다.
+
+$$
+\sqrt{n}(\hat{\beta} - \beta) = \Big( \frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1} \Big(\frac{1}{\sqrt{n} }\sum_{i=1}^n X_i e_i \Big).
+$$즉 normalized and centered estimator $\sqrt{n}(\hat{\beta} - \beta)$는 (1) sample average의 함수 $\Big( \frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1}$과 normalized sample average $\Big(\frac{1}{\sqrt{n} }\sum_{i=1}^n X_i e_i \Big)$의 곱으로 쓸 수 있다.
+
+그러면 뒷부분은 $E[Xe]=0$이고 이것의 $k\times k$ 공분산함수를 다음과 같이 둘 수 있다.
+$$
+\Omega = E[(Xe)(Xe)^T] = E[XX^T e^2].
+$$
+그리고 아래 가정에서처럼 $\Omega <\infty$라는 가정 하에 $X_i e_i$는 i.i.d. mean zero, 유한한 분산을 갖고 CLT에 의해
+$$
+\frac{1}{\sqrt{n}} \sum_{i=1}^n X_i e_i \stackrel{d}{\rightarrow}\mathcal{N}(0,\Omega).
+$$
+
+(\@Hansen2022 Assumption 7.2)
+
+1.  The variables $(Y_i, X_i), i=1,\ldots, n$ are i.i.d.
+2.  $E[Y^4]<\infty$.
+3.  $E\|X\|^4 <\infty$.
+4.  $Q_{XX} = E[XX^{T}]$ is positive definite.
+
+$\Omega <\infty$임을 보이려면 $jl$번째 원소 $E[X_jX_le^2]$이 유한함을 보이면 될 것이다. Properties of Linear Projection Model  (\@Hansen2022 Theorem 2.9.6) (If $E|Y|^r <\infty$ and $E|X|^r <\infty$ for $r\geq 2$, then $E|e|^r <\infty$)을 이용해 위의 2, 3번 조건에 의해 $E[e^4]<\infty$임을 보일 수 있다. 그러면 expectation inequality에 의해 $\Omega$의 $jl$번째 원소는 다음과 같이 bounded된다.
+$$
+|E[X_jX_le^2]|\leq E|X_jX_le^2| = E[|X_j||X_l|e^2].
+$$
+
+Stochastic order notation으로 다음과 같이 쓸 수 있다.
+
+$$
+\hat{\beta} = \beta + O_p(n^{-1/2}).
+$$

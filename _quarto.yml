@@ -1,0 +1,32 @@
+project:
+  type: book
+  output-dir: docs
+  
+book:
+  title: "book-lm"
+  author: "Seoncheol Park"
+  date: "8/14/2023"
+  search: true
+  downloads: [pdf]
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - 11_asympls.qmd
+    - 11_asympqr.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+    mainfont: "Noto Sans KR"
+    include-in-header: 
+      - text: |
+          \usepackage{kotex}
+
+editor: visual
+

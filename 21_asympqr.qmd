@@ -1,0 +1,19 @@
+---
+title: "Asymptotic Theory for Quantile Regression"
+---
+
+## Basics
+
+\<Check function\>
+
+$$
+\rho_{\tau} (x)= x(\tau - I\{x<0\})=
+\begin{cases}
+-x (1-\tau), & x<0\\
+x\tau, & x \geq 0
+\end{cases}.
+$$
+
+$$
+\psi_{\tau} (x) = \frac{d}{dx}\rho_{\tau}(x) = \tau - I \{x < 0\}, \quad{} x\neq 0.
+$$
