@@ -12,7 +12,7 @@ book:
     - index.qmd
     - intro.qmd
     - 11_asympls.qmd
-    - 11_asympqr.qmd
+    - 21_asympqr.qmd
     - summary.qmd
     - references.qmd
 
