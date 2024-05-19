@@ -1,9 +1,30 @@
 # Introduction
 
-This is a book created from markdown and executable code.
+- **회귀분석(regression analysis)**: 설명변수와 반응변수 사이의 함수관계를 알아내는 통계적 방법
 
-See @knuth84 for additional discussion of literate programming.
+- 용어의 역사: Galton의 [`Regression toward the mean` ](https://en.wikipedia.org/wiki/Regression_toward_the_mean)란 말에서부터 유래함
+
+## Galton's data
+
+<!--
+Linear models and extensions, chapter 2
+-->
+
+**Q**. 아버지와 아들 사이의 키 상관관계?
 
 ```{r}
-1 + 1
+#| echo: true
+#| message: false
+#| fig-align: center
+#| fig-cap: "Figure: Galton’s dataset"
+#| out-width: 70%
+#| fig-height: 6
+#| fig-weight: 6
+#| view-distance: 10
+
+library(HistData)
+xx = GaltonFamilies$midparentHeight
+yy = GaltonFamilies$childHeight
+
+plot(xx, yy, xlab="Father", ylab="Child", main="Galton's data")
 ```

@@ -1,10 +1,8 @@
----
-title: "Asymptotic Theory for Quantile Regression"
----
+# Asymptotic Theory for Quantile Regression
 
 ## Basics
 
-\<Check function\>
+**Check function**
 
 $$
 \rho_{\tau} (x)= x(\tau - I\{x<0\})=

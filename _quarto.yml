@@ -3,14 +3,15 @@ project:
   output-dir: docs
   
 book:
-  title: "book-lm"
+  title: "A Biggner’s Guide to Linear Models"
   author: "Seoncheol Park"
-  date: "8/14/2023"
+  date: today
   search: true
   downloads: [pdf]
   chapters:
     - index.qmd
     - intro.qmd
+    - 02_simplereg.qmd
     - 11_asympls.qmd
     - 21_asympqr.qmd
     - summary.qmd
@@ -24,6 +25,8 @@ format:
   pdf:
     documentclass: scrreprt
     mainfont: "Noto Sans KR"
+    filters:
+      - watermark
     include-in-header: 
       - text: |
           \usepackage{kotex}

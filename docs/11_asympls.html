@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>book-lm – 2&nbsp; Asymptotic Theory for Least Squares</title>
+<title>A Biggner’s Guide to Linear Models – 3&nbsp; Asymptotic Theory for Least Squares</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -31,7 +51,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./21_asympqr.html" rel="next">
-<link href="./intro.html" rel="prev">
+<link href="./02_simplereg.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_asympls.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_asympls.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -125,9 +145,9 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">book-lm</a> 
+      <a href="./">A Biggner’s Guide to Linear Models</a> 
         <div class="sidebar-tools-main">
-    <a href="./book-lm.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./A-Biggner’s-Guide-to-Linear-Models.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -152,20 +172,26 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./02_simplereg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./11_asympls.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./21_asympqr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Quantile Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Quantile Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -184,9 +210,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a></li>
-  <li><a href="#consistency-of-least-squares-estimator" id="toc-consistency-of-least-squares-estimator" class="nav-link" data-scroll-target="#consistency-of-least-squares-estimator"><span class="header-section-number">2.2</span> Consistency of Least Squares Estimator</a></li>
-  <li><a href="#asymptotic-normality" id="toc-asymptotic-normality" class="nav-link" data-scroll-target="#asymptotic-normality"><span class="header-section-number">2.3</span> Asymptotic Normality</a></li>
+  <li><a href="#consistency-of-least-squares-estimator" id="toc-consistency-of-least-squares-estimator" class="nav-link active" data-scroll-target="#consistency-of-least-squares-estimator"><span class="header-section-number">3.1</span> Consistency of Least Squares Estimator</a></li>
+  <li><a href="#asymptotic-normality" id="toc-asymptotic-normality" class="nav-link" data-scroll-target="#asymptotic-normality"><span class="header-section-number">3.2</span> Asymptotic Normality</a></li>
   </ul>
 </nav>
     </div>
@@ -195,7 +220,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></h1>
 </div>
 
 
@@ -212,13 +237,11 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
 <div id="thm-rss" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2.1 (Random sampling assumption (@Hansen2022 Definition 1.2))</strong></span> The variables <span class="math inline">\((Y_i, X_i)\)</span> are a <strong>random sample</strong> if they are mutually independent and identically distributed (i.i.d.) across <span class="math inline">\(i=1,\ldots, n\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 3.1 (Random sampling assumption (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Definition 1.2))</strong></span> The variables <span class="math inline">\((Y_i, X_i)\)</span> are a <strong>random sample</strong> if they are mutually independent and identically distributed (i.i.d.) across <span class="math inline">\(i=1,\ldots, n\)</span>.</p>
 </div>
 <div id="thm-blp" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2.2 (Best linear predictor 관련 assumption (@Hansen2022 Assumption 2.1))</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Theorem 3.2 (Best linear predictor 관련 assumption (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Assumption 2.1))</strong></span> &nbsp;</p>
 <ol type="1">
 <li><span class="math inline">\(E[Y^2]&lt;\infty\)</span></li>
 <li><span class="math inline">\(E\|X\|^2 &lt; \infty\)</span></li>
@@ -231,22 +254,21 @@ positive definiteness와 linearly independent:
 https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 -->
 </div>
-<p>위의 random sampling과 finite second moment assumption을 가져간채로 least squares estimation에 대한 assumption을 다시 정리한다. (@Hansen2022 Assumption 7.1)</p>
+<p>위의 random sampling과 finite second moment assumption을 가져간채로 least squares estimation에 대한 assumption을 다시 정리한다. (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Assumption 7.1)</p>
 <ol type="1">
 <li>The variables <span class="math inline">\((Y_i, X_i)\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> are i.i.d.</li>
 <li><span class="math inline">\(E[Y^2]&lt;\infty\)</span>.</li>
 <li><span class="math inline">\(E\|X\|^2&lt;\infty\)</span>.</li>
 <li><span class="math inline">\(Q_{XX} = E[XX^T]\)</span> is positive definite.</li>
 </ol>
-</section>
-<section id="consistency-of-least-squares-estimator" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="consistency-of-least-squares-estimator"><span class="header-section-number">2.2</span> Consistency of Least Squares Estimator</h2>
+<section id="consistency-of-least-squares-estimator" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="consistency-of-least-squares-estimator"><span class="header-section-number">3.1</span> Consistency of Least Squares Estimator</h2>
 <p>이 절의 목표는 <span class="math inline">\(\hat{\beta}\)</span>가 <span class="math inline">\(\beta\)</span>에 consistent함을</p>
 <ol type="1">
 <li>weak law of large numbers (WLLN)</li>
 <li>continuous mapping theorem (CMT)</li>
 </ol>
-<p>을 이용해 보이는 것이다. (@Hansen2022 7.2)</p>
+<p>을 이용해 보이는 것이다. (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> 7.2)</p>
 <p>Derivation을 다음과 같은 요소들로 구성된다.</p>
 <ol type="1">
 <li>OLS estimatior가 sample moment들의 집합의 연속함수로 표현될 수 있다.</li>
@@ -270,8 +292,8 @@ https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 \hat{\beta} = \beta + o_p (1).
 \]</span></p>
 </section>
-<section id="asymptotic-normality" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="asymptotic-normality"><span class="header-section-number">2.3</span> Asymptotic Normality</h2>
+<section id="asymptotic-normality" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="asymptotic-normality"><span class="header-section-number">3.2</span> Asymptotic Normality</h2>
 <p>Asymptotic normality를 다룰 때에는</p>
 <ol type="1">
 <li>먼저 estimator를 sample moment의 함수로 쓰는 것으로부터 시작한다.</li>
@@ -286,14 +308,14 @@ https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 \]</span> 그리고 아래 가정에서처럼 <span class="math inline">\(\Omega &lt;\infty\)</span>라는 가정 하에 <span class="math inline">\(X_i e_i\)</span>는 i.i.d. mean zero, 유한한 분산을 갖고 CLT에 의해 <span class="math display">\[
 \frac{1}{\sqrt{n}} \sum_{i=1}^n X_i e_i \stackrel{d}{\rightarrow}\mathcal{N}(0,\Omega).
 \]</span></p>
-<p>(@Hansen2022 Assumption 7.2)</p>
+<p>(<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Assumption 7.2)</p>
 <ol type="1">
 <li>The variables <span class="math inline">\((Y_i, X_i), i=1,\ldots, n\)</span> are i.i.d.</li>
 <li><span class="math inline">\(E[Y^4]&lt;\infty\)</span>.</li>
 <li><span class="math inline">\(E\|X\|^4 &lt;\infty\)</span>.</li>
 <li><span class="math inline">\(Q_{XX} = E[XX^{T}]\)</span> is positive definite.</li>
 </ol>
-<p><span class="math inline">\(\Omega &lt;\infty\)</span>임을 보이려면 <span class="math inline">\(jl\)</span>번째 원소 <span class="math inline">\(E[X_jX_le^2]\)</span>이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (@Hansen2022 Theorem 2.9.6) (If <span class="math inline">\(E|Y|^r &lt;\infty\)</span> and <span class="math inline">\(E|X|^r &lt;\infty\)</span> for <span class="math inline">\(r\geq 2\)</span>, then <span class="math inline">\(E|e|^r &lt;\infty\)</span>)을 이용해 위의 2, 3번 조건에 의해 <span class="math inline">\(E[e^4]&lt;\infty\)</span>임을 보일 수 있다. 그러면 expectation inequality에 의해 <span class="math inline">\(\Omega\)</span>의 <span class="math inline">\(jl\)</span>번째 원소는 다음과 같이 bounded된다. <span class="math display">\[
+<p><span class="math inline">\(\Omega &lt;\infty\)</span>임을 보이려면 <span class="math inline">\(jl\)</span>번째 원소 <span class="math inline">\(E[X_jX_le^2]\)</span>이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Theorem 2.9.6) (If <span class="math inline">\(E|Y|^r &lt;\infty\)</span> and <span class="math inline">\(E|X|^r &lt;\infty\)</span> for <span class="math inline">\(r\geq 2\)</span>, then <span class="math inline">\(E|e|^r &lt;\infty\)</span>)을 이용해 위의 2, 3번 조건에 의해 <span class="math inline">\(E[e^4]&lt;\infty\)</span>임을 보일 수 있다. 그러면 expectation inequality에 의해 <span class="math inline">\(\Omega\)</span>의 <span class="math inline">\(jl\)</span>번째 원소는 다음과 같이 bounded된다. <span class="math display">\[
 |E[X_jX_le^2]|\leq E|X_jX_le^2| = E[|X_j||X_l|e^2].
 \]</span></p>
 <p>Stochastic order notation으로 다음과 같이 쓸 수 있다.</p>
@@ -302,6 +324,11 @@ https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 \]</span></p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Hansen2022" class="csl-entry" role="listitem">
+Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton University Press.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -727,13 +754,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      <a href="./02_simplereg.html" class="pagination-link" aria-label="Simple Linear Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./21_asympqr.html" class="pagination-link" aria-label="Asymptotic Theory for Quantile Regression">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Quantile Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Quantile Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
