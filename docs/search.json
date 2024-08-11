@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "A Biggner’s Guide to Linear Models",
     "section": "",
-    "text": "Preface",
+    "text": "Preface\n열심히 공부합시다.",
     "crumbs": [
       "Preface"
     ]
@@ -14,89 +14,361 @@
     "href": "intro.html",
     "title": "1  Introduction",
     "section": "",
-    "text": "1.1 Galton’s data\nQ. 아버지와 아들 사이의 키 상관관계?\nlibrary(HistData)\nxx = GaltonFamilies$midparentHeight\nyy = GaltonFamilies$childHeight\n\nplot(xx, yy, xlab=\"Father\", ylab=\"Child\", main=\"Galton's data\")\n\n\n\n\nFigure: Galton’s dataset",
+    "text": "1.1 Galton’s data\nQ. 아버지와 아들 사이의 키 상관관계?\nCode\nlibrary(HistData)\nxx = GaltonFamilies$midparentHeight\nyy = GaltonFamilies$childHeight\n\nplot(xx, yy, xlab=\"Father\", ylab=\"Child\", main=\"Galton's data\")\n\n\n\n\n\nFigure: Galton’s dataset",
     "crumbs": [
+      "Intro",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
   {
-    "objectID": "02_simplereg.html",
-    "href": "02_simplereg.html",
+    "objectID": "simplereg.html",
+    "href": "simplereg.html",
     "title": "2  Simple Linear Regression",
     "section": "",
     "text": "2.1 Regression analysis\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\varepsilon_i \\quad{} \\text{or}\\quad{} Y=\\beta_0 + \\beta_1 X +\\varepsilon\n\\]",
     "crumbs": [
+      "Simple Linear Regression",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Simple Linear Regression</span>"
     ]
   },
   {
-    "objectID": "02_simplereg.html#regression-analysis",
-    "href": "02_simplereg.html#regression-analysis",
+    "objectID": "simplereg.html#regression-analysis",
+    "href": "simplereg.html#regression-analysis",
     "title": "2  Simple Linear Regression",
     "section": "",
     "text": "Goal: Find a linear relationship between an explanatory variable (\\(X\\)) and a response variable \\((Y)\\)\nAssumptions\n\n\nLinearity \\[\nE(Y|X=x) = \\beta_0 + \\beta_1 x\n\\]\n\\(Y|x\\) follows a normal distribution\nConstant variance \\[\n\\text{Var}(Y|X=x)=\\sigma^2 &lt;\\infty\n\\]\nExplanatory variable \\(X\\) is a fixed variable (not random)\nResponse variable \\(Y\\) is a random variable with measurement error \\(\\varepsilon \\sim (0, \\sigma^2)\\)\n\n\nSimple linear regression model",
     "crumbs": [
+      "Simple Linear Regression",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Simple Linear Regression</span>"
     ]
   },
   {
-    "objectID": "02_simplereg.html#ordinary-least-squares-ols",
-    "href": "02_simplereg.html#ordinary-least-squares-ols",
+    "objectID": "simplereg.html#ordinary-least-squares-ols",
+    "href": "simplereg.html#ordinary-least-squares-ols",
     "title": "2  Simple Linear Regression",
     "section": "2.2 Ordinary least squares (OLS)",
     "text": "2.2 Ordinary least squares (OLS)\n\nWith \\(n\\) data points \\((x_i, y_i)_{i=1}^n\\), our goal is to find the best linear fit of the data \\[\n(x_i, \\hat{y}_i = \\hat{\\beta}_0 + \\hat{\\beta}_1 x_i)_{i=1}^n\n\\]\nQ. What is the best fit?\nGauss가 제안한 방식은 다음의 ordinary least squares (OLS)이다. \\[\n(\\hat{\\beta}_0, \\hat{\\beta}_1) = \\arg\\min_{\\beta_0, \\beta_1} \\frac{1}{n}\\sum_{i=1}^n (y_i - \\beta_0 -\\beta_1 x_i)^2\n\\]\n\nExercise 2.1 (Least absolute deviation (LAD)) Least absolute deviation (LAD)에 대해 조사해보자.\n\n위의 식을 풀기 위해 각각을 \\(\\beta_0, \\beta_1\\)로 미분 후 \\(0\\)이 되는 \\(\\hat{\\beta}_0, \\hat{\\beta}_1\\)을 찾는 전략을 이용하게 되는데, 여기서 정규방정식(normal equation)을 얻게 된다. \\[\n\\begin{cases}\n-\\frac{2}{n}\\sum_{i=1}^n (y_i - \\hat{\\beta}_0 - \\hat{\\beta}_1 x_i) &=0\\\\\n-\\frac{2}{n}\\sum_{i=1}^n x_i(y_i - \\hat{\\beta}_0 - \\hat{\\beta}_1 x_i) &=0\n\\end{cases}\n\\]",
     "crumbs": [
+      "Simple Linear Regression",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Simple Linear Regression</span>"
     ]
   },
   {
-    "objectID": "11_asympls.html",
-    "href": "11_asympls.html",
-    "title": "3  Asymptotic Theory for Least Squares",
+    "objectID": "boosting.html",
+    "href": "boosting.html",
+    "title": "3  Boosting",
     "section": "",
-    "text": "3.1 Consistency of Least Squares Estimator\n이 절의 목표는 \\(\\hat{\\beta}\\)가 \\(\\beta\\)에 consistent함을\n을 이용해 보이는 것이다. (Hansen (2022) 7.2)\nDerivation을 다음과 같은 요소들로 구성된다.\n그렇다면 먼저 OLS estimator를 다음과 같이 sample moments \\(\\hat{Q}_{XX}=\\frac{1}{n}\\sum_{i=1}^{n} X_i X_i^{T}\\)와 \\(\\hat{Q}_{XX}=\\frac{1}{n}\\sum_{i=1}^{n} X_i Y_i\\)의 함수로 쓸 수 있다.\n\\[\n\\hat{\\beta} = \\Big(\\frac{1}{n}\\sum_{i=1}^n X_i X_i^T \\Big)^{-1} \\Big(\\frac{1}{n}\\sum_{i=1}^n X_i Y_i \\Big) = \\hat{Q}_{XX}^{-1}\\hat{Q}_{XY}\n\\]\n\\((Y_i, X_i)\\)가 mutually i.i.d. 라는 가정은 \\((Y_i, X_i)\\)로 구성된, 예를 들면 \\(X_i X_i^{T}\\)와 \\(X_i Y_i\\)가 i.i.d.임을 의미한다. 이들은 또한 앞선 Assumption 7.1에 의해 finite expectation을 갖는다. 이러한 조건 하에서, \\(n\\rightarrow \\infty\\)일 때 WLLN은\n\\[\n\\hat{Q}_{XX} = \\frac{1}{n}\\sum_{i=1}^n X_i X_i^{T} \\stackrel{p}{\\rightarrow} E[XX^T] = Q_{XX}, \\quad{} \\hat{Q}_{XY} = \\frac{1}{n}\\sum_{i=1}^n X_i Y_i\\stackrel{p}{\\rightarrow} E[XY] = Q_{XY}.\n\\]\n그 다음 continuous mapping theorem을 써서 \\(\\hat{\\beta} \\rightarrow \\beta\\)임을 보일 수 있다는 것이다. \\(n\\rightarrow \\infty\\)일 때,\n\\[\n\\hat{\\beta} = \\hat{Q}_{XX} ^{-1}\\hat{Q}_{XY} \\stackrel{p}{\\rightarrow}Q_{XX}^{-1}Q_{XY} = \\beta.\n\\]\nStochastic order notation으로 다음과 같이 쓸 수 있다.\n\\[\n\\hat{\\beta} = \\beta + o_p (1).\n\\]",
+    "text": "3.1 Boosting: 개요\nhttps://www.uio.no/studier/emner/matnat/math/STK-IN4300/h22/slides/lect10_modified.pdf",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Asymptotic Theory for Least Squares</span>"
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boosting</span>"
     ]
   },
   {
-    "objectID": "11_asympls.html#consistency-of-least-squares-estimator",
-    "href": "11_asympls.html#consistency-of-least-squares-estimator",
-    "title": "3  Asymptotic Theory for Least Squares",
+    "objectID": "boosting.html#boosting-개요",
+    "href": "boosting.html#boosting-개요",
+    "title": "3  Boosting",
+    "section": "",
+    "text": "Boosting의 가장 큰 특징: base learner를 sequentially하게 fitting함\nBase learner로는 weak learner를 사용: tree를 예로 들면 한 번 정도 split한 tree를 base learner로 사용",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boosting</span>"
+    ]
+  },
+  {
+    "objectID": "boosting.html#adaboost",
+    "href": "boosting.html#adaboost",
+    "title": "3  Boosting",
+    "section": "3.2 AdaBoost",
+    "text": "3.2 AdaBoost",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boosting</span>"
+    ]
+  },
+  {
+    "objectID": "boosting.html#gradient-boosting",
+    "href": "boosting.html#gradient-boosting",
+    "title": "3  Boosting",
+    "section": "3.3 Gradient boosting",
+    "text": "3.3 Gradient boosting\n부스팅 공부할 만한 자료: https://mlcourse.ai/book/topic10/topic10_gradient_boosting.html\n\n3.3.1 \\(L^2\\) boosting\n\nReference: https://mdporter.github.io/DS6030/lectures/boosting.pdf\n\n\n\n\n\n\nL2 boosting\n\n\n\n\n\n\n\nL2 boosting\n\n\n\n\n\n\n\nL2 boosting\n\n\n\n\n\n\n3.3.2 Distributional gradient boosting\n\nDistirbutional gradient boosting",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boosting</span>"
+    ]
+  },
+  {
+    "objectID": "kernelreg.html",
+    "href": "kernelreg.html",
+    "title": "4  커널회귀",
+    "section": "",
+    "text": "4.1 RKHS\n어떤 \\(n\\times p\\) 행렬 \\(A\\)가 있을 때 이것의 column space를 \\(C(A)\\)라고 하자.\nRonald Christensen은 아래 \\(C(XX^T)=C(X)\\)의 결과를 the fundamental theorem of reproducing kernel Hilbert spaces라고 부른다.\nRKHS는 \\(p\\)-벡터 \\(x_i\\)를 \\(s\\)-벡터 \\(\\phi_i\\)로 \\(\\phi_i =\\begin{bmatrix} \\phi_0 (x_i), \\cdots \\phi_{s-1}(x_i) \\end{bmatrix}^T\\)로 변환시킨다. \\(X\\)를 \\(x_i^T\\)들이 행으로 구성된 행렬로 보면 똑같은 논리로 \\(\\phi_i^T\\)가 행으로 구성된 행렬 \\(\\Phi\\)를 생각할 수 있다. \\(X^X=[x_i^Tx_j]\\)를 \\(x_i\\)들의 inner products로 만드는 \\(n\\times n\\) 행렬로 보면 RKHS는 reproducing kernel \\(R(\\cdot, \\cdot)\\)이 존재해 \\[\n\\tilde{R} \\equiv [ R(x_i, x_j)]= [\\phi_i^T D(\\eta) \\phi_j] = \\Phi D(\\eta) \\Phi^T\n\\] 가 \\(\\phi_i\\)들의 \\(n\\times n\\) inner product matrix이며 \\(D(\\eta)\\)가 positive definite diagonal matrix가 됨을 말해준다. \\(D(\\eta)\\)가 positive definite diagonal matrix이므로 PA책 Theorem B.22에 의해 \\(D(\\eta)=QQ^T\\)인 정방행렬 \\(Q\\)가 존재할 것이고 the fundamental theorem of reproducing kernel Hilbert spaces에 따라 \\(s\\)가 유한하면 \\(C[\\Phi D(\\eta) \\Phi^T] = C(\\Phi)\\)일 것이다. 따라서 rk 모형 \\[\nY = \\tilde{R}\\gamma + e\n\\] 를 적합하는 것은 다음의 비모수모형 \\[\nY = \\Phi \\beta + e\n\\] 를 적합하는 것과 같다. 즉 rk 모형은 \\(\\beta=D(\\eta) \\Phi^T \\gamma\\)로 reparametrization한 것이다. 특별히 rk 모형을 이요해 예측하는 것은 다음과 같이 하면 된다. \\[\n\\hat{y}(x) = \\begin{bmatrix} R(x,x_1), \\ldots, R(x,x_n) \\end{bmatrix} \\hat{\\gamma}.\n\\]\n\\(\\Phi\\)를 가지고 linear structure를 적합하는 것이나 \\(n \\times n\\) 행렬 \\(\\tilde{R}\\)을 이용해 적합하는 것이나 같을 것이고 이를 kernel trick이라 한다.",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>커널회귀</span>"
+    ]
+  },
+  {
+    "objectID": "kernelreg.html#rkhs",
+    "href": "kernelreg.html#rkhs",
+    "title": "4  커널회귀",
+    "section": "",
+    "text": "Definition 4.1 (Two column spaces are equiv) For any matrix \\(X\\), \\(C(XX^T)=C(X)\\).\n\n\nProof. Clearly \\(C(XX^T)\\subset C(X)\\), so we need to show that \\(C(X) \\subset C(XX^T)\\). Let \\(x \\in C(X)\\). Then \\(x = Xb\\) for some \\(b\\). Write \\(b=b_0 + b_1\\), where \\(b_0 \\in C(X^T)\\) and \\(b1 \\perp C(X^T)\\). Clearly, \\(Xb_1 = 0\\), so we have \\(x=Xb_0\\). But \\(b_0=X^Td\\) for some \\(d\\); so \\(x=Xb_0=XX^Td\\) and \\(x\\in C(XX^T)\\).\n\n\nDefinition 4.2 (Equivalent Linear Models) If \\(Y=X_1 \\beta_1 + e_1\\) and \\(Y = X_2 \\beta_2 +e_2\\) are two models for the same dependent variable vector \\(Y\\), the models are equivalent if \\(C(X_1) = C(X_2)\\).\nSince \\(C(X) = C(XX^T)\\), this implies that the linear models \\(Y= X\\beta_1 +e_1\\) and \\(Y=XX^T\\beta_2 +e_2\\) are equivalent.\n\n\n\n\n\nTheorem 4.1 (Hilbert space가 RKHS가 되기 위한 조건) A Hilbert space is a RKHS iff the evaluation functionals are continuous.",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>커널회귀</span>"
+    ]
+  },
+  {
+    "objectID": "kernelreg.html#kernel-trick",
+    "href": "kernelreg.html#kernel-trick",
+    "title": "4  커널회귀",
+    "section": "4.2 Kernel Trick",
+    "text": "4.2 Kernel Trick\nKernel trick의 가장 큰 장점은 알려진 함수 \\(R(\\cdot, \\cdot)\\)을 쓰므로 \\(\\tilde{R}\\)을 만들어내기 쉽다는 것이다. 반대로 \\(\\phi_j (\\cdot)\\) 함수들에서 \\(s\\)를 specify하는 것은 시간이 더 걸릴 것이다.\n또한 \\(n\\times s\\)행렬 \\(\\Phi\\)는 \\(s\\)가 크면 이상해지는데, \\(\\tilde{R}\\)은 항상 \\(n\\times n\\)이 되어 \\(s\\)가 너무 커질때 이상해지거나 \\(s\\)가 너무 작을때 단순화되는 것을 막아준다.\n\\(s\\geq n\\)이고 \\(x_i\\)들이 distinct (같은 값을 갖는 \\(x\\)들이 없다는 뜻)라면 \\(\\tilde{R}\\)은 \\(n \\times n\\) 이고 rank \\(n\\)인 행렬이며 이것은 saturated model (데이터 수 만큼 모수가 있는 모형)을 만든다. LS estimate는 fitted value가 obs와 같은 자료를 만들 것이며 d.f는 0이 될 것이다. 즉 overfitting이 있는 것인데, 그래서 보통 kernel trick은 penalized (regularized) estimation과 같이 사용하게 된다.\n\\(s\\geq n\\)일 때에는 다른 \\(R(\\cdot, \\cdot)\\)을 선택한다 하더라도, 같은 \\(C(\\tilde{R})\\)을 주어 같은 모형을 주는 셈이 된다. 즉 같은 least squares fits를 준다. 그러나 parametrization을 다르게 하고 거기에 penalty를 주는 방식 (ridge, LASSO 등)으로 다른 fitted value를 만들어낼 수 있다.\n사용하려고 하는 \\(\\phi_j\\) 함수들을 다 알고 있을 경우, rk를 쓰는 이득이 었다. 그러나 \\(\\phi_j\\)를 다루기 어렵거나 \\(s=\\infty\\)일 경우에는 rks가 도움이 될 것이다.\n다음은 많이 쓰이는 rks들을 정리해 놓았다. \\(\\|u-v\\|\\)에만 의존하는 rk들을 radial basis function rk라고 부른다.\n\n\n\n\n\n\n\nNames\n\\(R(u,v)\\)\n\n\n\n\nPolynomial of degree \\(d\\)\n\\((1+u^Tv)^d\\)\n\n\nPolynomial of degree \\(d\\)\n\\(b(c+u^Tv)^d\\)\n\n\nGaussian (radial basis)\n\\(\\exp (-b\\|u-v\\|^2)\\)\n\n\nSigmoid (hyperbolic tangent)\n\\(\\text{tanh}(bu^Tv +c)\\)\n\n\nLinear spline (\\(u,v\\) scalars)\n\\(\\min (u,v)\\)\n\n\nCubic spline (\\(u,v\\) scalars)\n\\(\\max (u,v) \\min^2 (u,v)/2 - \\min^3(u,v)/6\\)\n\n\nThin plate spline (2 dimensions)\n\\(\\|u -v\\|^2 \\log (\\|u - v\\|)\\)\n\n\n\n표에 있는 것들 중 hyperbolic tangent는 \\(\\tilde{R}\\)을 not nonnegatively definite한 것들로 줄 수도 있어 실제로 rk는 아니다. 그러나 \\(u\\)에 대해서 연속인 어떤 \\(R(u,v)\\)든지 \\[\nf(x) = \\sum_{j=1}^n \\gamma_j R(x,x_j)\n\\] 와 같은 형태의 모형 적합을 유도해낼 수 있기 때문에 이러한 것들을 쓰는 것도 설득력이 있다.\nRk의 아이디어는 함수를 small support를 이용해 근사하는 방법들, 즉 1차원에서 \\(s_{*}\\)개의 집합으로 나누고 line의 partition을 만들어내는 wavelet, B-spline 등의 방법과 비교할 수 있다. 이러한 방법들은 당연히 \\(p\\)차원에서 \\(s_{*}^p\\)개의 dimension을 생각해야 하고 고차원에서 다루기 어렵게 된다. 그러나 kernel method에서는 각 data point에 커널을 적합하는 셈이므로 \\(p\\)가 크게 커져도 괜찮다.",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>커널회귀</span>"
+    ]
+  },
+  {
+    "objectID": "kernelreg.html#kernel-trick과-svm",
+    "href": "kernelreg.html#kernel-trick과-svm",
+    "title": "4  커널회귀",
+    "section": "4.3 Kernel Trick과 SVM",
+    "text": "4.3 Kernel Trick과 SVM\n\n\n함수 안에 dot product가 있으면 kernel trick을 쓸 수 있다고 한다. 이러한 것들 중 대표적인 것이 SVM이다. SVM의 objective function은 다음과 같다. \\[\n\\max_{\\alpha} \\sum_i \\alpha_i - \\frac{1}{2}\\sum_i \\sum_j \\alpha_i \\alpha_j y_i y_j \\pmb{x}_i^T\\pmb{x}_j ,\\quad{} \\text{s.t. } \\sum_{i} \\alpha_i y_i = 0.\n\\] 이 objective 함수 안에는 dot product \\(\\pmb{x}_i^T\\pmb{x}_j\\)가 들어 있고 kernel trick을 쓸 수 있어 SVM이 강력해진다.\n\n\n\n\n\nFigure: Example of a labeled data inseparable in 2-Dim is separable in 3-Dim.\n\n\n\n\n위 그림에서, 원래 자료 \\(\\pmb{x} = \\{x_1, x_2\\}\\)는 2차원에 있는데 이것은 inseparable 하지만 변환 \\[\n\\Phi (\\pmb{x}) \\rightarrow (x_1^2, x_2^2, \\sqrt{2}x_1x_2)\n\\] 를 이용해 오른쪽 그림과 같이 바꾸면 분리가능하다.\n앞선 \\(\\Phi\\) 변환을 이용했을 때 3D 공간에서 decision boundary는 다음과 같다. \\[\n\\beta_0 + \\beta_1 x_1^2 + \\beta_2 x_2^2 + \\beta_3 \\sqrt{2} x_1 x_2 = 0.\n\\] 만약 로지스틱과 같은 회귀를 이용한다면 위의 식과 같은 모형을 쓸 것이다. 그러나 SVM에서는 kernel trick을 이용해 decision boundary를 만들 수 있다. 이를 위해 \\(\\langle \\Phi(\\pmb{x}_i), \\Phi(\\pmb{x}_j) \\rangle\\)의 dot product를 찾아야 한다.\n\\[\\begin{align*}\n\\langle \\Phi(\\pmb{x}_i), \\Phi(\\pmb{x}_j) \\rangle &= \\langle \\{x_{i1}^2, x_{i2}^2, \\sqrt{2}x_{i1}x_{i2}\\}, \\{x_{i1}^2, x_{i2}^2, \\sqrt{2}x_{i1}x_{i2}\\} \\rangle\\\\\n&= x_{i1}^2 + x_{j1}^2 + x_{i2}^2 x_{j2}^2 + 2x_{i1}x_{i2}x_{j1}x_{j2}\n\\end{align*}\\]\n일단 이것을 하려면\n\n\\(\\Phi\\)를 정의해야 하고\n\\(\\Phi\\) 변환 계산시 \\(3\\times 2\\)의 계산\n그리고 dot product를 계산하는 데 3번 해서\n\n총 9번의 계산이 필요하다. 그러나 만약 커널 \\(K(\\pmb{x}_i,\\pmb{x}_j)=\\langle \\pmb{x}_i,\\pmb{x}_j\\rangle^2\\)을 이용한다면, 변환 \\(\\Phi\\)를 찾을 필요도 없고, 그냥 2차원 공간에서 바로 고차원의 similarity measure (dot product)를 만들어낼 수 있다.\n\\[\\begin{align*}\n\\langle \\pmb{x}_i,\\pmb{x}_j\\rangle^2 &= \\langle\\{ x_{i1}, x_{i2}\\},\\{ x_{i1}, x_{i2}\\} \\rangle^2\\\\\n&= (x_{i1}x_{j1} + x_{i2}x_{j2})^2\\\\\n&= x_{i1}^2 + x_{j1}^2 + x_{i2}^2 x_{j2}^2 + 2x_{i1}x_{i2}x_{j1}x_{j2}\n\\end{align*}\\]\n로 만들어낼 수 있다. 이것을 하려면\n\n\\(K\\)는 정의해야 하나\n두 번째 식까지 두 번의 operation\n마지막 식에서 제곱을 위해 한 번의 operation\n\n3번의 계산이 필요하다.\n다른 예제를 보자. Decision boundary를 다음과 같이 정하였다. \\[\n\\beta_0 + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_1^2 + \\beta_4 x_2^2 + \\beta_5 \\sqrt{2} x_1 x_2 = 0.\n\\]\n\\(\\Phi(\\pmb{x}) \\rightarrow (1, \\sqrt{2}x_1, \\sqrt{2}x_2, x_1^2, x_2^2, \\sqrt{2}x_1 x_2)\\)와 같이 5차원 변환 \\(\\Phi\\)를 이용해 구하는 방법은 총 16번의 계산을 필요로 한다.\n\\[\\begin{align*}\n\\langle \\Phi(\\pmb{x}_i), \\Phi(\\pmb{x}_j) \\rangle &= \\langle \\{1, \\sqrt{2}x_{i1}, \\sqrt{2}x_{i2}, x_{i1}^2, x_{i2}^2, \\sqrt{2}x_{i1}x_{i2}\\}, \\{1, \\sqrt{2}x_{i1}, \\sqrt{2}x_{i2}, x_{i1}^2, x_{i2}^2, \\sqrt{2}x_{i1}x_{i2}\\} \\rangle\\\\\n&= 1+ 2x_{i1}x_{j1} + 2x_{i2}x_{j2} +x_{i1}^2 x_{j1}^2 + x_{i2}^2 x_{j2}^2 +  x_{i2}^2 x_{j2}^2 + 2x_{i1}x_{i2}x_{j1}x_{j2}\n\\end{align*}\\]\n그러나 커널 \\(K(\\pmb{x}_i,\\pmb{x}_j)=\\langle 1+ \\langle\\pmb{x}_i,\\pmb{x}_j\\rangle\\rangle^2\\)를 이용하면 세 번의 계산으로 된다고 한다. \\[\\begin{align*}\n\\langle 1+ \\langle\\pmb{x}_i,\\pmb{x}_j\\rangle\\rangle^2 &= (1+ x_{i1}x_{j1}+x_{i2}x_{j2})^2\\\\\n&=1+ 2x_{i1}x_{j1} + 2x_{i2}x_{j2} +x_{i1}^2 x_{j1}^2 + x_{i2}^2 x_{j2}^2 +  x_{i2}^2 x_{j2}^2 + 2x_{i1}x_{i2}x_{j1}x_{j2}\n\\end{align*}\\]\n\n4.3.1 무한차원에서의 kernel trick\n앞선 논리를 그대로 적용하면, kernel trick은 infinite space에서도 유사도를 잴 수 있게 해준다. Gaussian Kernel (RBF), exponential kernel, Laplace kernel 등이 실제로 그러한 역할을 한다. Gaussian kernel은 다음과 같다. \\[\nK(\\pmb{x}_i,\\pmb{x}_j)=\\exp \\Big( - \\frac{\\| \\pmb{x}_i - \\pmb{x}_j \\|^2}{2\\sigma^2} \\Big)\n\\]\n\\(\\sigma=1\\)로 두면 위의 Gaussian kernel은 \\(C=\\exp\\Big( -\\frac{1}{2}\\| \\pmb{x}_i\\|^2 \\Big)\\exp\\Big( -\\frac{1}{2}\\| \\pmb{x}_j\\|^2 \\Big)\\)으로 두었을 때 \\[\n\\exp \\Big( -\\frac{1}{2}\\| \\pmb{x}_i - \\pmb{x}_j\\|^2 \\Big) =C\\Big\\{ 1- \\underbrace{\\frac{\\langle\\pmb{x}_i, \\pmb{x}_j \\rangle}{1!}}_{\\text{1st order}}+\\underbrace{\\frac{\\langle\\pmb{x}_i, \\pmb{x}_j \\rangle^2}{2!}}_{\\text{2nd order}}-\\underbrace{\\frac{\\langle\\pmb{x}_i, \\pmb{x}_j \\rangle^3}{3!}}_{\\text{3rd order}} + \\cdots \\Big\\}\n\\] 이러한 표현은 무한차원으로 확장 가능하며, Gaussian kernel이 무한차원에서의 유사도를 찾을 수 있게 해준다.\n물론 커널 기반 방법도 커널을 먼저 정해줘야 하며, cross-validation 등을 이용해 커널 함수를 정하거나 또는 커널에 쓰이는 조율모수를 정하게 된다.",
+    "crumbs": [
+      "Nonlinear and Nonparametric Models",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>커널회귀</span>"
+    ]
+  },
+  {
+    "objectID": "robustreg.html",
+    "href": "robustreg.html",
+    "title": "5  Robust Regression",
+    "section": "",
+    "text": "5.1 Robust statistics\nQ. \\(F\\)가 오염이 되었을 때 우리가 생각하는 추정량 \\(\\hat{\\theta}\\)가 얼마나 영향을 받을 것인가?",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Robust Regression</span>"
+    ]
+  },
+  {
+    "objectID": "robustreg.html#robust-statistics",
+    "href": "robustreg.html#robust-statistics",
+    "title": "5  Robust Regression",
+    "section": "",
+    "text": "Contaminated distribution function: \\[\nF_{\\varepsilon} = \\varepsilon \\delta_y + (1-\\varepsilon)F\n\\]\nwhere\n\n\\(\\delta_y\\): mass 1 to the point \\(y\\)\n\\(F\\): a distribution function\n\nInfluence function of \\(\\hat{\\theta}\\) at \\(F\\):\n\\[\nIF_{\\hat{\\theta}} (y, F)=\\lim_{\\varepsilon\\rightarrow 0} \\frac{\\hat{\\theta}(F_{\\varepsilon} ) - \\hat{\\theta}(F)}{\\varepsilon}\n\\]",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Robust Regression</span>"
+    ]
+  },
+  {
+    "objectID": "robustreg.html#robust-regression",
+    "href": "robustreg.html#robust-regression",
+    "title": "5  Robust Regression",
+    "section": "5.2 Robust Regression",
+    "text": "5.2 Robust Regression\n\n\nRobust regression: 잡음성이 많은 자료에 사용",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Robust Regression</span>"
+    ]
+  },
+  {
+    "objectID": "quantreg.html",
+    "href": "quantreg.html",
+    "title": "6  Quantile Regression",
+    "section": "",
+    "text": "6.1 Check loss function\nFigure: Check loss function.",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quantile Regression</span>"
+    ]
+  },
+  {
+    "objectID": "quantreg.html#check-loss-function",
+    "href": "quantreg.html#check-loss-function",
+    "title": "6  Quantile Regression",
+    "section": "",
+    "text": "Check loss function \\[\n\\rho_\\tau (u) = u(\\tau - I(u&lt;0))\n\\tag{6.1}\\]\n\n\n\nLoss function: 값이 클수록 손실이 많음\n\n\\(\\tau&lt;0.5\\): \\(\\rho_\\tau (u)\\)는 \\(u&lt;0\\)일 때 큰 가중치\n\\(\\tau&gt;0.5\\): \\(\\rho_\\tau (u)\\)는 \\(u&gt;0\\)일 때 큰 가중치\n\n\\(\\rho_\\tau (u)\\)는 \\(u=0\\)에서 미분 불가능",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quantile Regression</span>"
+    ]
+  },
+  {
+    "objectID": "quantreg.html#estimation",
+    "href": "quantreg.html#estimation",
+    "title": "6  Quantile Regression",
+    "section": "6.2 Estimation",
+    "text": "6.2 Estimation\n\nObjective function \\[\nR(\\beta) = \\sum_{i=1}^n \\rho_\\tau (y_i - x_i^T \\boldsymbol{\\beta})=\\sum_{i=1}^n \\big\\{\\tau |\\varepsilon_i| I[\\varepsilon_i \\geq 0] + (1-\\tau) |\\varepsilon_i| I[\\varepsilon_i &lt; 0] \\big\\}\n\\tag{6.2}\\]\nDirectional derivative of \\(R\\) in direction \\(w\\): \\[\n\\begin{align*}\n\\nabla R(\\boldsymbol{\\beta}, w) &= \\frac{d}{dt} R(\\boldsymbol{\\beta}+ t w) \\vert_{t=0}\\\\\n&=\\frac{d}{dt}\n\\end{align*}\n\\]",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quantile Regression</span>"
+    ]
+  },
+  {
+    "objectID": "quantreg.html#quantile-regression-as-a-linear-programming",
+    "href": "quantreg.html#quantile-regression-as-a-linear-programming",
+    "title": "6  Quantile Regression",
+    "section": "6.3 Quantile regression as a linear programming",
+    "text": "6.3 Quantile regression as a linear programming\n\n\nLinear program: solving \\[\n\\min_{\\mathbf{z}} \\mathbf{c}^T\\mathbf{z} \\quad{} \\text{subject to } A\\mathbf{z} = \\mathbf{b}, \\mathbf{z}\\geq 0\n\\]\n선형계획 문제를 풀 때는 \\(\\mathbf{z}\\) 부분에 해당하는 값이 양수여야 함. 따라서 분위수 회귀문제를 선형계획으로 풀려면 다음과 같이 \\(\\varepsilon_i\\)를 slack variable을 이용해 양수와 음수 파트로 나눠야 함. \\[\n\\varepsilon_i = u_i - v_i\n\\]\n이떄\n\n\\(u_i= \\max(0,\\varepsilon_i) = |\\varepsilon_i | I[\\varepsilon_i \\geq 0]\\)\n\\(v_i= \\max(0,-\\varepsilon_i) = |\\varepsilon_i | I[\\varepsilon_i &lt; 0]\\)\n\nThen \\[\n\\sum_{i=1}^n \\rho_\\tau (\\varepsilon_i) = \\sum_{i=1}^n \\tau u_i + (1-\\tau)v_i = \\tau \\mathbf{1}_n^T \\mathbf{u} + (1-\\tau)\\mathbf{1}_n^T \\mathbf{v}\n\\]\nQuantile regression objective function (Equation 6.2) may be reformulated as a linear program: \\[\n\\min_{\\boldsymbol{\\beta},\\mathbf{u},\\mathbf{v}} \\{ \\tau \\mathbf{1}_n^T \\mathbf{u} + (1-\\tau)\\mathbf{1}_n^T \\mathbf{v} \\vert \\mathbf{X}\\boldsymbol{\\beta} + \\mathbf{u}-\\mathbf{v} = \\mathbf{y}\\}\n\\]\n\n\n\n알고리즘\n\nSimplex method\nFrisch-Newton interior point method\nSparse regression quantile fitting\n\n\n\n6.3.1 R 코드\n\n출처: stackexchange\n\n\n\nCode\nbase=read.table(\"http://freakonometrics.free.fr/rent98_00.txt\",header=TRUE)\nattach(base)\nlibrary(quantreg)\nlibrary(lpSolve)\ntau &lt;- 0.3\n\n\n# Problem (1) only one covariate\nX &lt;- cbind(1,base$area)\nK &lt;- ncol(X)\nN &lt;- nrow(X)\n\nA &lt;- cbind(X,-X,diag(N),-diag(N))\nc &lt;- c(rep(0,2*ncol(X)),tau*rep(1,N),(1-tau)*rep(1,N))\nb &lt;- base$rent_euro\nconst_type &lt;- rep(\"=\",N)\n\nlinprog &lt;- lp(\"min\",c,A,const_type,b)\nbeta &lt;- linprog$sol[1:K] -  linprog$sol[(1:K+K)]\nbeta\n\n\n[1] 148.946864   3.289674\n\n\nCode\nrq(rent_euro~area, tau=tau, data=base)\n\n\nCall:\nrq(formula = rent_euro ~ area, tau = tau, data = base)\n\nCoefficients:\n(Intercept)        area \n 148.946864    3.289674 \n\nDegrees of freedom: 4571 total; 4569 residual\n\n\nCode\n# Problem (2) with 2 covariates\nX &lt;- cbind(1,base$area,base$yearc)\nK &lt;- ncol(X)\nN &lt;- nrow(X)\n\nA &lt;- cbind(X,-X,diag(N),-diag(N))\nc &lt;- c(rep(0,2*ncol(X)),tau*rep(1,N),(1-tau)*rep(1,N))\nb &lt;- base$rent_euro\nconst_type &lt;- rep(\"=\",N)\n\nlinprog &lt;- lp(\"min\",c,A,const_type,b)\nbeta &lt;- linprog$sol[1:K] -  linprog$sol[(1:K+K)]\nbeta\n\n\n[1] -5542.503252     3.978135     2.887234\n\n\nCode\nrq(rent_euro~ area + yearc, tau=tau, data=base)\n\n\nCall:\nrq(formula = rent_euro ~ area + yearc, tau = tau, data = base)\n\nCoefficients:\n (Intercept)         area        yearc \n-5542.503252     3.978135     2.887234 \n\nDegrees of freedom: 4571 total; 4568 residual",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quantile Regression</span>"
+    ]
+  },
+  {
+    "objectID": "quantreg.html#quantile-crossing",
+    "href": "quantreg.html#quantile-crossing",
+    "title": "6  Quantile Regression",
+    "section": "6.4 Quantile crossing",
+    "text": "6.4 Quantile crossing\n\n분위수 회귀는 기본적으로 각 \\(\\tau\\)에 대해 따로 회귀모형을 적합하는 방식이기 때문에 낮은 \\(\\tau\\)에서의 조건부 분위수 추정값이 높은 \\(\\tau\\)에서의 조건부 분위수 추정값보다 높은 역전 현상이 발생할 수도 있는데, 이를 quantile crossing이라 함\nQuantile crossing을 막으려면 한 번에 conditional distribution 전체를 모델링 해야 하고, GAMLSS 등이 그런 방법을 취하고 있으나, 분포가정을 해야 함",
+    "crumbs": [
+      "Robust and Quantile Regression",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quantile Regression</span>"
+    ]
+  },
+  {
+    "objectID": "asympls.html",
+    "href": "asympls.html",
+    "title": "7  Asymptotic Theory for Least Squares",
+    "section": "",
+    "text": "7.1 Consistency of Least Squares Estimator\n이 절의 목표는 \\(\\hat{\\beta}\\)가 \\(\\beta\\)에 consistent함을\n을 이용해 보이는 것이다. (Hansen (2022) 7.2)\nDerivation을 다음과 같은 요소들로 구성된다.\n그렇다면 먼저 OLS estimator를 다음과 같이 sample moments \\(\\hat{Q}_{XX}=\\frac{1}{n}\\sum_{i=1}^{n} X_i X_i^{T}\\)와 \\(\\hat{Q}_{XX}=\\frac{1}{n}\\sum_{i=1}^{n} X_i Y_i\\)의 함수로 쓸 수 있다.\n\\[\n\\hat{\\beta} = \\Big(\\frac{1}{n}\\sum_{i=1}^n X_i X_i^T \\Big)^{-1} \\Big(\\frac{1}{n}\\sum_{i=1}^n X_i Y_i \\Big) = \\hat{Q}_{XX}^{-1}\\hat{Q}_{XY}\n\\]\n\\((Y_i, X_i)\\)가 mutually i.i.d. 라는 가정은 \\((Y_i, X_i)\\)로 구성된, 예를 들면 \\(X_i X_i^{T}\\)와 \\(X_i Y_i\\)가 i.i.d.임을 의미한다. 이들은 또한 앞선 Assumption 7.1에 의해 finite expectation을 갖는다. 이러한 조건 하에서, \\(n\\rightarrow \\infty\\)일 때 WLLN은\n\\[\n\\hat{Q}_{XX} = \\frac{1}{n}\\sum_{i=1}^n X_i X_i^{T} \\stackrel{p}{\\rightarrow} E[XX^T] = Q_{XX}, \\quad{} \\hat{Q}_{XY} = \\frac{1}{n}\\sum_{i=1}^n X_i Y_i\\stackrel{p}{\\rightarrow} E[XY] = Q_{XY}.\n\\]\n그 다음 continuous mapping theorem을 써서 \\(\\hat{\\beta} \\rightarrow \\beta\\)임을 보일 수 있다는 것이다. \\(n\\rightarrow \\infty\\)일 때,\n\\[\n\\hat{\\beta} = \\hat{Q}_{XX} ^{-1}\\hat{Q}_{XY} \\stackrel{p}{\\rightarrow}Q_{XX}^{-1}Q_{XY} = \\beta.\n\\]\nStochastic order notation으로 다음과 같이 쓸 수 있다.\n\\[\n\\hat{\\beta} = \\beta + o_p (1).\n\\]",
+    "crumbs": [
+      "Linear Model Asymptotics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Asymptotic Theory for Least Squares</span>"
+    ]
+  },
+  {
+    "objectID": "asympls.html#consistency-of-least-squares-estimator",
+    "href": "asympls.html#consistency-of-least-squares-estimator",
+    "title": "7  Asymptotic Theory for Least Squares",
     "section": "",
     "text": "weak law of large numbers (WLLN)\ncontinuous mapping theorem (CMT)\n\n\n\n\nOLS estimatior가 sample moment들의 집합의 연속함수로 표현될 수 있다.\nWLLN을 이용해 sample moments가 population moments에 converge in probability함을 보인다.\nCMT를 이용해 연속함수에서 converges in probability가 보존됨을 보장한다",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Asymptotic Theory for Least Squares</span>"
+      "Linear Model Asymptotics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Asymptotic Theory for Least Squares</span>"
     ]
   },
   {
-    "objectID": "11_asympls.html#asymptotic-normality",
-    "href": "11_asympls.html#asymptotic-normality",
-    "title": "3  Asymptotic Theory for Least Squares",
-    "section": "3.2 Asymptotic Normality",
-    "text": "3.2 Asymptotic Normality\nAsymptotic normality를 다룰 때에는\n\n먼저 estimator를 sample moment의 함수로 쓰는 것으로부터 시작한다.\n그리고 그것들 중 하나가 zero-mean random vector의 sum으로 표현될 수 있고 이는 CLT를 적용 가능케 한다.\n\n우선 \\(\\hat{\\beta}- \\beta = \\hat{Q}_{XX}^{-1}\\hat{Q}_{Xe}\\)라고 두자. 그리고 이를 \\(\\sqrt{n}\\)에 곱하면 다음 표현을 얻을 수 있다.\n\\[\n\\sqrt{n}(\\hat{\\beta} - \\beta) = \\Big( \\frac{1}{n}\\sum_{i=1}^n X_i X_i^T \\Big)^{-1} \\Big(\\frac{1}{\\sqrt{n} }\\sum_{i=1}^n X_i e_i \\Big).\n\\]즉 normalized and centered estimator \\(\\sqrt{n}(\\hat{\\beta} - \\beta)\\)는 (1) sample average의 함수 \\(\\Big( \\frac{1}{n}\\sum_{i=1}^n X_i X_i^T \\Big)^{-1}\\)과 normalized sample average \\(\\Big(\\frac{1}{\\sqrt{n} }\\sum_{i=1}^n X_i e_i \\Big)\\)의 곱으로 쓸 수 있다.\n그러면 뒷부분은 \\(E[Xe]=0\\)이고 이것의 \\(k\\times k\\) 공분산함수를 다음과 같이 둘 수 있다. \\[\n\\Omega = E[(Xe)(Xe)^T] = E[XX^T e^2].\n\\] 그리고 아래 가정에서처럼 \\(\\Omega &lt;\\infty\\)라는 가정 하에 \\(X_i e_i\\)는 i.i.d. mean zero, 유한한 분산을 갖고 CLT에 의해 \\[\n\\frac{1}{\\sqrt{n}} \\sum_{i=1}^n X_i e_i \\stackrel{d}{\\rightarrow}\\mathcal{N}(0,\\Omega).\n\\]\n(Hansen (2022) Assumption 7.2)\n\nThe variables \\((Y_i, X_i), i=1,\\ldots, n\\) are i.i.d.\n\\(E[Y^4]&lt;\\infty\\).\n\\(E\\|X\\|^4 &lt;\\infty\\).\n\\(Q_{XX} = E[XX^{T}]\\) is positive definite.\n\n\\(\\Omega &lt;\\infty\\)임을 보이려면 \\(jl\\)번째 원소 \\(E[X_jX_le^2]\\)이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (Hansen (2022) Theorem 2.9.6) (If \\(E|Y|^r &lt;\\infty\\) and \\(E|X|^r &lt;\\infty\\) for \\(r\\geq 2\\), then \\(E|e|^r &lt;\\infty\\))을 이용해 위의 2, 3번 조건에 의해 \\(E[e^4]&lt;\\infty\\)임을 보일 수 있다. 그러면 expectation inequality에 의해 \\(\\Omega\\)의 \\(jl\\)번째 원소는 다음과 같이 bounded된다. \\[\n|E[X_jX_le^2]|\\leq E|X_jX_le^2| = E[|X_j||X_l|e^2].\n\\]\nStochastic order notation으로 다음과 같이 쓸 수 있다.\n\\[\n\\hat{\\beta} = \\beta + O_p(n^{-1/2}).\n\\]\n\n\n\n\nHansen, Bruce. 2022. Econometrics. Princeton University Press.",
+    "objectID": "asympls.html#asymptotic-normality",
+    "href": "asympls.html#asymptotic-normality",
+    "title": "7  Asymptotic Theory for Least Squares",
+    "section": "7.2 Asymptotic Normality",
+    "text": "7.2 Asymptotic Normality\nAsymptotic normality를 다룰 때에는\n\n먼저 estimator를 sample moment의 함수로 쓰는 것으로부터 시작한다.\n그리고 그것들 중 하나가 zero-mean random vector의 sum으로 표현될 수 있고 이는 CLT를 적용 가능케 한다.\n\n우선 \\(\\hat{\\beta}- \\beta = \\hat{Q}_{XX}^{-1}\\hat{Q}_{Xe}\\)라고 두자. 그리고 이를 \\(\\sqrt{n}\\)에 곱하면 다음 표현을 얻을 수 있다.\n\\[\n\\sqrt{n}(\\hat{\\beta} - \\beta) = \\Big( \\frac{1}{n}\\sum_{i=1}^n X_i X_i^T \\Big)^{-1} \\Big(\\frac{1}{\\sqrt{n} }\\sum_{i=1}^n X_i e_i \\Big).\n\\]즉 normalized and centered estimator \\(\\sqrt{n}(\\hat{\\beta} - \\beta)\\)는 (1) sample average의 함수 \\(\\Big( \\frac{1}{n}\\sum_{i=1}^n X_i X_i^T \\Big)^{-1}\\)과 normalized sample average \\(\\Big(\\frac{1}{\\sqrt{n} }\\sum_{i=1}^n X_i e_i \\Big)\\)의 곱으로 쓸 수 있다.\n그러면 뒷부분은 \\(E[Xe]=0\\)이고 이것의 \\(k\\times k\\) 공분산함수를 다음과 같이 둘 수 있다. \\[\n\\Omega = E[(Xe)(Xe)^T] = E[XX^T e^2].\n\\] 그리고 아래 가정에서처럼 \\(\\Omega &lt;\\infty\\)라는 가정 하에 \\(X_i e_i\\)는 i.i.d. mean zero, 유한한 분산을 갖고 CLT에 의해 \\[\n\\frac{1}{\\sqrt{n}} \\sum_{i=1}^n X_i e_i \\stackrel{d}{\\rightarrow}\\mathcal{N}(0,\\Omega).\n\\]\n(Hansen (2022) Assumption 7.2)\n\nThe variables \\((Y_i, X_i), i=1,\\ldots, n\\) are i.i.d.\n\\(E[Y^4]&lt;\\infty\\).\n\\(E\\|X\\|^4 &lt;\\infty\\).\n\\(Q_{XX} = E[XX^{T}]\\) is positive definite.\n\n\\(\\Omega &lt;\\infty\\)임을 보이려면 \\(jl\\)번째 원소 \\(E[X_jX_le^2]\\)이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (Hansen (2022) Theorem 2.9.6) (If \\(E|Y|^r &lt;\\infty\\) and \\(E|X|^r &lt;\\infty\\) for \\(r\\geq 2\\), then \\(E|e|^r &lt;\\infty\\))을 이용해 위의 2, 3번 조건에 의해 \\(E[e^4]&lt;\\infty\\)임을 보일 수 있다. 그러면 expectation inequality에 의해 \\(\\Omega\\)의 \\(jl\\)번째 원소는 다음과 같이 bounded된다. \\[\n|E[X_jX_le^2]|\\leq E|X_jX_le^2| = E[|X_j||X_l|e^2].\n\\]\nStochastic order notation으로 다음과 같이 쓸 수 있다.\n\\[\n\\hat{\\beta} = \\beta + O_p(n^{-1/2}).\n\\]\n\n\n\n\nHansen, Bruce. 2022. Econometrics. Princeton University Press.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Asymptotic Theory for Least Squares</span>"
+      "Linear Model Asymptotics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Asymptotic Theory for Least Squares</span>"
     ]
   },
   {
-    "objectID": "21_asympqr.html",
-    "href": "21_asympqr.html",
-    "title": "4  Asymptotic Theory for Quantile Regression",
+    "objectID": "asympqr.html",
+    "href": "asympqr.html",
+    "title": "8  Asymptotic Theory for Quantile Regression",
     "section": "",
-    "text": "4.1 Basics\nCheck function\n\\[\n\\rho_{\\tau} (x)= x(\\tau - I\\{x&lt;0\\})=\n\\begin{cases}\n-x (1-\\tau), & x&lt;0\\\\\nx\\tau, & x \\geq 0\n\\end{cases}.\n\\]\n\\[\n\\psi_{\\tau} (x) = \\frac{d}{dx}\\rho_{\\tau}(x) = \\tau - I \\{x &lt; 0\\}, \\quad{} x\\neq 0.\n\\]",
+    "text": "8.1 Basics\nCheck function\n\\[\n\\rho_{\\tau} (x)= x(\\tau - I\\{x&lt;0\\})=\n\\begin{cases}\n-x (1-\\tau), & x&lt;0\\\\\nx\\tau, & x \\geq 0\n\\end{cases}.\n\\]\n\\[\n\\psi_{\\tau} (x) = \\frac{d}{dx}\\rho_{\\tau}(x) = \\tau - I \\{x &lt; 0\\}, \\quad{} x\\neq 0.\n\\]",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Asymptotic Theory for Quantile Regression</span>"
+      "Linear Model Asymptotics",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Asymptotic Theory for Quantile Regression</span>"
+    ]
+  },
+  {
+    "objectID": "slm.html",
+    "href": "slm.html",
+    "title": "9  Spatial Linear Models",
+    "section": "",
+    "text": "9.1 Linear Model",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Spatial Linear Models</span>"
+    ]
+  },
+  {
+    "objectID": "slm.html#linear-model",
+    "href": "slm.html#linear-model",
+    "title": "9  Spatial Linear Models",
+    "section": "",
+    "text": "A linear model for a response variable \\(Y\\) postulates that the response is related to the observed values of \\(p\\) explanatory variables \\(X_1, \\ldots, X_p\\) via this equation: \\[\nY = X_1 \\beta_1 + X_2 \\beta_2 + \\cdots + X_p \\beta_p + e,\n\\] where\n\\(\\beta_1, \\ldots, \\beta_p\\): (unknown) parameters (coefficients)\n\\(e\\): a random variable (error)\n\\(X_1 \\beta_1 + X_2 \\beta_2 + \\cdots + X_p \\beta_p\\): mean structure\nWhen \\(n\\) obs \\((y_1, \\pmb{x}_1), \\ldots, (y_, \\pmb{x}_n)\\) are taken on the response and explanatory variables, the linear model as just defined implied that \\[\ny_i = \\pmb{x}_i^T \\pmb{\\beta} + e_i, \\quad{} (i=1,\\ldots, n)\n\\] where\n\\(\\pmb{\\beta} = (\\beta_1, \\ldots, \\beta_p)^T\\) and \\(e_1, \\ldots, e_n\\) are \\(n\\) possibly correlated random variables.\nUsing vector and matrix notations: \\[\n\\pmb{y} = \\pmb{X \\beta} + \\pmb{e}.\n\\]\n\\(\\pmb{e}\\): error vector\n\\(\\pmb{\\Sigma}\\): \\(\\text{Var}(\\pmb{e})\\)",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Spatial Linear Models</span>"
+    ]
+  },
+  {
+    "objectID": "slm.html#spatial-linear-model",
+    "href": "slm.html#spatial-linear-model",
+    "title": "9  Spatial Linear Models",
+    "section": "9.2 Spatial Linear Model",
+    "text": "9.2 Spatial Linear Model\n\nA spatial linear model is defined as a linear model for spatial data for which the elements of \\(\\pmb{\\Sigma}\\) are spatially structured functions of the data sites\n\n\n9.2.1 Spatial Aitken Model\n\nThe simplest spatial linear model is an extension of the Gauss-Markov model that we call the spatial Aitken model: \\[\n\\pmb{\\Sigma} = \\sigma^2 \\pmb{R},\n\\] where\n\\(\\sigma^2\\): an unknown positive parameter and\n\\(\\pmb{R}\\) is a known positive definite matrix whose elements are spatially structured functions of the data sites. We refer to \\(\\pmb{R}\\) as the scale-free covariance matrix of the observations; in some settings, but not all, it is a correlation matrix.\nEstimation: generalized least squares (GLS)\n\n\nExample 9.1 (A toy example of a spatial Aitken model) Consider four obs located at the corners of the unit square in \\(\\mathbb{R}^2\\), ordered such that the first and last obs are located at opposite corners of the square. Suppose that the model for the obs is given by \\[\n\\pmb{R} =\n\\begin{pmatrix}\n1 & e^{-1} & e^{-1} & e^{-\\sqrt{2}}\\\\\ne^{-1} & 1 & e^{-\\sqrt{2}} & e^{-1}\\\\\ne^{-1} & e^{-\\sqrt{2}} & 1 & e^{-1}\\\\\ne^{-\\sqrt{2}} & e^{-1} & e^{-1} & 1\n\\end{pmatrix}\n\\]\n\n\nSymmetric\nPositive definiteness: the variance of any linear combinations of obs having this cov matrix, expect the trivial linear combination with all coeffs equal to zero.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Spatial Linear Models</span>"
+    ]
+  },
+  {
+    "objectID": "slm.html#spatial-general-linear-model",
+    "href": "slm.html#spatial-general-linear-model",
+    "title": "9  Spatial Linear Models",
+    "section": "9.3 Spatial General Linear Model",
+    "text": "9.3 Spatial General Linear Model\n\nA more flexible spatial linear model\n\\(\\pmb{\\Sigma}\\) is not fully specified but is given by a known spatially structured, matrix-valued parametric function \\(\\pmb{\\Sigma}(\\pmb{\\theta})\\), where \\(\\pmb{\\theta}\\) is an unknown parameter vector.\nJoint parameter space for \\(\\pmb{\\beta}\\) and \\(\\pmb{\\theta}\\) generally taken to be \\[\n\\{ (\\pmb{\\beta}, \\pmb{\\theta}): \\pmb{\\beta} \\in \\mathbb{R}^p, \\pmb{\\theta} \\in \\Theta \\subset \\mathbb{R}^m \\}\n\\] where\n\\(\\Theta\\): the set of vectors \\(\\pmb{\\theta}\\) for which \\(\\pmb{\\Sigma}(\\pmb{\\theta})\\) is symmetric and positive definite, or possibly some subset of that set.\n\n\nRemark 9.1. A spatial Aitken model is a special case of a spatial general linear model, with \\(\\pmb{\\theta} \\equiv \\sigma^2\\) and \\(\\pmb{R}\\) not functionally dependent on any unknown parameters.\n\n\nExample 9.2 (A toy example of a spatial Aitken model (2)) \\[\n\\pmb{\\Sigma}(\\pmb{\\theta}) = \\sigma^2\n\\begin{pmatrix}\n1 & e^{-1/\\alpha} & e^{-1/\\alpha} & e^{-\\sqrt{2}/\\alpha}\\\\\ne^{-1/\\alpha} & 1 & e^{-\\sqrt{2}/\\alpha} & e^{-1/\\alpha}\\\\\ne^{-1/\\alpha} & e^{-\\sqrt{2}/\\alpha} & 1 & e^{-1/\\alpha}\\\\\ne^{-\\sqrt{2}/\\alpha} & e^{-1/\\alpha} & e^{-1/\\alpha} & 1\n\\end{pmatrix}\n\\]\nThe parameter space for \\(\\pmb{\\theta} \\equiv (\\sigma^2, \\alpha)^T\\) within which \\(\\pmb{\\Sigma}(\\pmb{\\theta})\\) is p.d. is \\[\n\\{ (\\sigma^2, \\alpha) : \\sigma^2 &gt; 0 , \\alpha &gt;0 \\}\n\\]\nSmall values of \\(\\alpha\\) correspond to weak spatial correlation among the obs, and as \\(\\alpha\\) increases the spatial correlation among obs become stronger.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Spatial Linear Models</span>"
+    ]
+  },
+  {
+    "objectID": "gp.html",
+    "href": "gp.html",
+    "title": "10  Gaussian Processes",
+    "section": "",
+    "text": "10.1 Regression analysis",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Gaussian Processes</span>"
+    ]
+  },
+  {
+    "objectID": "gp.html#regression-analysis",
+    "href": "gp.html#regression-analysis",
+    "title": "10  Gaussian Processes",
+    "section": "",
+    "text": "All finite collection of realizations (\\(n\\) obs) is modeled as having a multivariate normal (MVN) distribution.\nMean function: \\(\\mu (x)\\)\nCovariance function: \\(\\Sigma (x, x')\\)\n\\(\\Sigma (x, x') = \\exp \\{ - \\| x- x' \\|^2 \\}\\)\n\\(\\Sigma (x, x )=1\\)\n\\(\\Sigma (x, x')\\) must be positive definite\n\\(\\Sigma_n\\): covariance matrix (p.d.)",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Gaussian Processes</span>"
+    ]
+  },
+  {
+    "objectID": "gp.html#splines-vs-gp",
+    "href": "gp.html#splines-vs-gp",
+    "title": "10  Gaussian Processes",
+    "section": "10.2 Splines vs GP",
+    "text": "10.2 Splines vs GP",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Gaussian Processes</span>"
+    ]
+  },
+  {
+    "objectID": "pca.html",
+    "href": "pca.html",
+    "title": "11  PCA and Least Squares",
+    "section": "",
+    "text": "11.1 PCA as least squares problems\nPCA can be formulated as follows:\nGiven \\(m\\) vectors \\(\\pmb{x}_1, \\ldots, \\pmb{x}_m \\in \\mathbb{R}^n\\), find matrices \\(\\pmb{U} \\in \\mathcal{M}_{\\mathbb{R}} (k,n)\\) and \\(\\pmb{V} \\in \\mathcal{M}_{\\mathbb{R}}(n,k)\\) such that \\[\n\\sum_{i=1}^m \\| \\pmb{x}_i - \\pmb{V}\\pmb{U}\\pmb{x}_i\\|^2\n\\] is minimized.\nThat is, for \\(k&lt;n\\), the vector \\(\\pmb{U}\\pmb{x}_i \\in \\mathbb{R}^k\\) is the projection of \\(\\pmb{x}_i\\) into a lower-dimensional subspace, and \\(\\pmb{V}\\pmb{U}\\pmb{x}_i\\) is the reconstructed original vector. PCA aims to find matrices \\(\\pmb{U}\\), \\(\\pmb{V}\\) that minimize the reconstruction error as measured by the \\(\\ell^2\\)-norm. It can be shown that, in fact, these matrices are orthogonal and \\(\\pmb{U} = \\pmb{V}^T\\), so the problem reduces to \\[\n\\arg\\min_{V\\in \\mathcal{M}_{\\mathbb{R}}(n,k)}\\sum_{i=1}^m \\| \\pmb{x}_i - \\pmb{V}\\pmb{V}^T \\pmb{x}_i \\|^2\n\\] Further manipulations show that \\(\\pmb{V}\\) is the matrix whose columns are the eigenvectors corresponding to the \\(k\\) largest eigenvalues of \\[\n\\sum_{i=1}^m \\pmb{x}_i \\pmb{x}_i^T\n\\] as expected. So indeed, PCA is a least squares method and it is quite sensitive to outliers.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>PCA and Least Squares</span>"
     ]
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "5  Summary",
+    "title": "12  Summary",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2",
+    "text": "In summary, this book has no content whatsoever.\n\n\nCode\n1 + 1\n\n\n[1] 2",
     "crumbs": [
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Summary</span>"
     ]
   },
   {

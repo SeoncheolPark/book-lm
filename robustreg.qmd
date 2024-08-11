@@ -1,0 +1,35 @@
+# Robust Regression
+
+## Robust statistics
+
+**Q**. $F$가 오염이 되었을 때 우리가 생각하는 추정량 $\hat{\theta}$가 얼마나 영향을 받을 것인가?
+
+```{=html}
+<!--
+Koenker 2.3.1
+-->
+```
+-   Contaminated distribution function: $$
+    F_{\varepsilon} = \varepsilon \delta_y + (1-\varepsilon)F
+    $$
+
+    where
+
+    -   $\delta_y$: mass 1 to the point $y$
+
+    -   $F$: a distribution function
+
+-   Influence function of $\hat{\theta}$ at $F$:
+
+    $$
+    IF_{\hat{\theta}} (y, F)=\lim_{\varepsilon\rightarrow 0} \frac{\hat{\theta}(F_{\varepsilon} ) - \hat{\theta}(F)}{\varepsilon}
+    $$
+
+## Robust Regression
+
+```{=html}
+<!--
+응용선형회귀모형
+-->
+```
+-   **Robust regression**: 잡음성이 많은 자료에 사용

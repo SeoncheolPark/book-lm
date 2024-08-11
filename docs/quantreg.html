@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>A Biggner’s Guide to Linear Models – 12&nbsp; Summary</title>
+<title>A Biggner’s Guide to Linear Models – 6&nbsp; Quantile Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./pca.html" rel="prev">
+<link href="./asympls.html" rel="next">
+<link href="./robustreg.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,6 +123,35 @@ MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -135,7 +164,7 @@ MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./summary.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./robustreg.html">Robust and Quantile Regression</a></li><li class="breadcrumb-item"><a href="./quantreg.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -243,7 +272,7 @@ MathJax = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quantreg.html" class="sidebar-item-text sidebar-link">
+  <a href="./quantreg.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile Regression</span></span></a>
   </div>
 </li>
@@ -303,7 +332,7 @@ MathJax = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link active">
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
@@ -318,15 +347,27 @@ MathJax = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#check-loss-function" id="toc-check-loss-function" class="nav-link active" data-scroll-target="#check-loss-function"><span class="header-section-number">6.1</span> Check loss function</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">6.2</span> Estimation</a></li>
+  <li><a href="#quantile-regression-as-a-linear-programming" id="toc-quantile-regression-as-a-linear-programming" class="nav-link" data-scroll-target="#quantile-regression-as-a-linear-programming"><span class="header-section-number">6.3</span> Quantile regression as a linear programming</a>
+  <ul class="collapse">
+  <li><a href="#r-코드" id="toc-r-코드" class="nav-link" data-scroll-target="#r-코드"><span class="header-section-number">6.3.1</span> R 코드</a></li>
+  </ul></li>
+  <li><a href="#quantile-crossing" id="toc-quantile-crossing" class="nav-link" data-scroll-target="#quantile-crossing"><span class="header-section-number">6.4</span> Quantile crossing</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./robustreg.html">Robust and Quantile Regression</a></li><li class="breadcrumb-item"><a href="./quantreg.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quantile Regression</span></h1>
 </div>
 
 
@@ -343,18 +384,179 @@ MathJax = {
 </header>
 
 
-<p>In summary, this book has no content whatsoever.</p>
-<div class="cell">
+<section id="check-loss-function" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="check-loss-function"><span class="header-section-number">6.1</span> Check loss function</h2>
+<!--
+Koenker
+-->
+<ul>
+<li>Check loss function <span id="eq-qr-check"><span class="math display">\[
+\rho_\tau (u) = u(\tau - I(u&lt;0))
+\tag{6.1}\]</span></span></li>
+</ul>
+<div class="cell" data-layout-align="center" data-fig-weight="6" data-view-distance="10">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="quantreg_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Figure: Check loss function.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Loss function: 값이 클수록 손실이 많음
+<ul>
+<li><span class="math inline">\(\tau&lt;0.5\)</span>: <span class="math inline">\(\rho_\tau (u)\)</span>는 <span class="math inline">\(u&lt;0\)</span>일 때 큰 가중치</li>
+<li><span class="math inline">\(\tau&gt;0.5\)</span>: <span class="math inline">\(\rho_\tau (u)\)</span>는 <span class="math inline">\(u&gt;0\)</span>일 때 큰 가중치</li>
+</ul></li>
+<li><span class="math inline">\(\rho_\tau (u)\)</span>는 <span class="math inline">\(u=0\)</span>에서 미분 불가능</li>
+</ul>
+<!--
+Koenker page 32
+-->
+</section>
+<section id="estimation" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="estimation"><span class="header-section-number">6.2</span> Estimation</h2>
+<ul>
+<li><p>Objective function <span id="eq-qr-objective"><span class="math display">\[
+R(\beta) = \sum_{i=1}^n \rho_\tau (y_i - x_i^T \boldsymbol{\beta})=\sum_{i=1}^n \big\{\tau |\varepsilon_i| I[\varepsilon_i \geq 0] + (1-\tau) |\varepsilon_i| I[\varepsilon_i &lt; 0] \big\}
+\tag{6.2}\]</span></span></p></li>
+<li><p>Directional derivative of <span class="math inline">\(R\)</span> in direction <span class="math inline">\(w\)</span>: <span class="math display">\[
+\begin{align*}
+\nabla R(\boldsymbol{\beta}, w) &amp;= \frac{d}{dt} R(\boldsymbol{\beta}+ t w) \vert_{t=0}\\
+&amp;=\frac{d}{dt}
+\end{align*}
+\]</span></p></li>
+</ul>
+</section>
+<section id="quantile-regression-as-a-linear-programming" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="quantile-regression-as-a-linear-programming"><span class="header-section-number">6.3</span> Quantile regression as a linear programming</h2>
+<!--
+Koenker page 10
+https://stats.stackexchange.com/questions/384909/formulating-quantile-regression-as-linear-programming-problem
+-->
+<ul>
+<li><p>Linear program: solving <span class="math display">\[
+\min_{\mathbf{z}} \mathbf{c}^T\mathbf{z} \quad{} \text{subject to } A\mathbf{z} = \mathbf{b}, \mathbf{z}\geq 0
+\]</span></p></li>
+<li><p>선형계획 문제를 풀 때는 <span class="math inline">\(\mathbf{z}\)</span> 부분에 해당하는 값이 양수여야 함. 따라서 분위수 회귀문제를 선형계획으로 풀려면 다음과 같이 <span class="math inline">\(\varepsilon_i\)</span>를 slack variable을 이용해 양수와 음수 파트로 나눠야 함. <span class="math display">\[
+\varepsilon_i = u_i - v_i
+\]</span></p>
+<p>이떄</p>
+<ul>
+<li><span class="math inline">\(u_i= \max(0,\varepsilon_i) = |\varepsilon_i | I[\varepsilon_i \geq 0]\)</span></li>
+<li><span class="math inline">\(v_i= \max(0,-\varepsilon_i) = |\varepsilon_i | I[\varepsilon_i &lt; 0]\)</span></li>
+</ul></li>
+<li><p>Then <span class="math display">\[
+\sum_{i=1}^n \rho_\tau (\varepsilon_i) = \sum_{i=1}^n \tau u_i + (1-\tau)v_i = \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v}
+\]</span></p></li>
+<li><p>Quantile regression objective function (<a href="#eq-qr-objective" class="quarto-xref">Equation&nbsp;<span>6.2</span></a>) may be reformulated as a linear program: <span class="math display">\[
+\min_{\boldsymbol{\beta},\mathbf{u},\mathbf{v}} \{ \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v} \vert \mathbf{X}\boldsymbol{\beta} + \mathbf{u}-\mathbf{v} = \mathbf{y}\}
+\]</span></p></li>
+</ul>
+<!--
+flexible regression 58쪽
+-->
+<ul>
+<li><p>알고리즘</p>
+<ul>
+<li><p>Simplex method</p></li>
+<li><p>Frisch-Newton interior point method</p></li>
+<li><p>Sparse regression quantile fitting</p></li>
+</ul></li>
+</ul>
+<section id="r-코드" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="r-코드"><span class="header-section-number">6.3.1</span> R 코드</h3>
+<ul>
+<li><a href="https://stats.stackexchange.com/questions/384909/formulating-quantile-regression-as-linear-programming-problem">출처: stackexchange</a></li>
+</ul>
+<div class="cell" data-layout-align="center" data-fig-weight="6" data-view-distance="10">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>base<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">"http://freakonometrics.free.fr/rent98_00.txt"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(base)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantreg)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lpSolve)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Problem (1) only one covariate</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>,base<span class="sc">$</span>area)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X,<span class="sc">-</span>X,<span class="fu">diag</span>(N),<span class="sc">-</span><span class="fu">diag</span>(N))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="sc">*</span><span class="fu">ncol</span>(X)),tau<span class="sc">*</span><span class="fu">rep</span>(<span class="dv">1</span>,N),(<span class="dv">1</span><span class="sc">-</span>tau)<span class="sc">*</span><span class="fu">rep</span>(<span class="dv">1</span>,N))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> base<span class="sc">$</span>rent_euro</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>const_type <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"="</span>,N)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>linprog <span class="ot">&lt;-</span> <span class="fu">lp</span>(<span class="st">"min"</span>,c,A,const_type,b)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> linprog<span class="sc">$</span>sol[<span class="dv">1</span><span class="sc">:</span>K] <span class="sc">-</span>  linprog<span class="sc">$</span>sol[(<span class="dv">1</span><span class="sc">:</span>K<span class="sc">+</span>K)]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>beta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>[1] 148.946864   3.289674</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rq</span>(rent_euro<span class="sc">~</span>area, <span class="at">tau=</span>tau, <span class="at">data=</span>base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+rq(formula = rent_euro ~ area, tau = tau, data = base)
+
+Coefficients:
+(Intercept)        area 
+ 148.946864    3.289674 
+
+Degrees of freedom: 4571 total; 4569 residual</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Problem (2) with 2 covariates</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>,base<span class="sc">$</span>area,base<span class="sc">$</span>yearc)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X,<span class="sc">-</span>X,<span class="fu">diag</span>(N),<span class="sc">-</span><span class="fu">diag</span>(N))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="sc">*</span><span class="fu">ncol</span>(X)),tau<span class="sc">*</span><span class="fu">rep</span>(<span class="dv">1</span>,N),(<span class="dv">1</span><span class="sc">-</span>tau)<span class="sc">*</span><span class="fu">rep</span>(<span class="dv">1</span>,N))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> base<span class="sc">$</span>rent_euro</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>const_type <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"="</span>,N)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>linprog <span class="ot">&lt;-</span> <span class="fu">lp</span>(<span class="st">"min"</span>,c,A,const_type,b)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> linprog<span class="sc">$</span>sol[<span class="dv">1</span><span class="sc">:</span>K] <span class="sc">-</span>  linprog<span class="sc">$</span>sol[(<span class="dv">1</span><span class="sc">:</span>K<span class="sc">+</span>K)]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>beta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -5542.503252     3.978135     2.887234</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rq</span>(rent_euro<span class="sc">~</span> area <span class="sc">+</span> yearc, <span class="at">tau=</span>tau, <span class="at">data=</span>base)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+rq(formula = rent_euro ~ area + yearc, tau = tau, data = base)
+
+Coefficients:
+ (Intercept)         area        yearc 
+-5542.503252     3.978135     2.887234 
+
+Degrees of freedom: 4571 total; 4568 residual</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="quantile-crossing" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="quantile-crossing"><span class="header-section-number">6.4</span> Quantile crossing</h2>
+<ul>
+<li><p>분위수 회귀는 기본적으로 각 <span class="math inline">\(\tau\)</span>에 대해 따로 회귀모형을 적합하는 방식이기 때문에 낮은 <span class="math inline">\(\tau\)</span>에서의 조건부 분위수 추정값이 높은 <span class="math inline">\(\tau\)</span>에서의 조건부 분위수 추정값보다 높은 역전 현상이 발생할 수도 있는데, 이를 <strong>quantile crossing</strong>이라 함</p></li>
+<li><p>Quantile crossing을 막으려면 한 번에 conditional distribution 전체를 모델링 해야 하고, GAMLSS 등이 그런 방법을 취하고 있으나, 분포가정을 해야 함</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -779,13 +981,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pca.html" class="pagination-link" aria-label="PCA and Least Squares">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">PCA and Least Squares</span></span>
+      <a href="./robustreg.html" class="pagination-link" aria-label="Robust Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Robust Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./asympls.html" class="pagination-link" aria-label="Asymptotic Theory for Least Squares">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Asymptotic Theory for Least Squares</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

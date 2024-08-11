@@ -1,0 +1,161 @@
+# Quantile Regression
+
+## Check loss function
+
+```{=html}
+<!--
+Koenker
+-->
+```
+-   Check loss function $$
+    \rho_\tau (u) = u(\tau - I(u<0))
+    $$ {#eq-qr-check}
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-align: center
+#| fig-cap: "Figure: Check loss function."
+#| out-width: 70%
+#| fig-height: 6
+#| fig-weight: 6
+#| view-distance: 10
+
+rho <- function(u, tau=0.5){
+  if(u>0){
+    return(tau*abs(u))
+  }else if(u<=0){
+    return((1-tau)*abs(u))
+  }
+}
+u <- seq(-3,3,length.out=100)
+plot(u,sapply(u,rho), type='l', col=1)
+lines(u,sapply(u,rho,tau=0.1), type='l', col=2)
+lines(u,sapply(u,rho,tau=0.7), type='l', col=3)
+legend("bottomleft", c(expression(paste(tau,"=0.5")),expression(paste(tau,"=0.1")),expression(paste(tau,"=0.7"))), col=c(1,2,3),lty=c(1,1,1))
+
+```
+
+-   Loss function: 값이 클수록 손실이 많음
+    -   $\tau<0.5$: $\rho_\tau (u)$는 $u<0$일 때 큰 가중치
+    -   $\tau>0.5$: $\rho_\tau (u)$는 $u>0$일 때 큰 가중치
+-   $\rho_\tau (u)$는 $u=0$에서 미분 불가능
+
+```{=html}
+<!--
+Koenker page 32
+-->
+```
+## Estimation
+
+-   Objective function $$
+    R(\beta) = \sum_{i=1}^n \rho_\tau (y_i - x_i^T \boldsymbol{\beta})=\sum_{i=1}^n \big\{\tau |\varepsilon_i| I[\varepsilon_i \geq 0] + (1-\tau) |\varepsilon_i| I[\varepsilon_i < 0] \big\}
+    $$ {#eq-qr-objective}
+
+-   Directional derivative of $R$ in direction $w$: $$
+    \begin{align*}
+    \nabla R(\boldsymbol{\beta}, w) &= \frac{d}{dt} R(\boldsymbol{\beta}+ t w) \vert_{t=0}\\
+    &=\frac{d}{dt}
+    \end{align*}
+    $$
+
+## Quantile regression as a linear programming
+
+```{=html}
+<!--
+Koenker page 10
+https://stats.stackexchange.com/questions/384909/formulating-quantile-regression-as-linear-programming-problem
+-->
+```
+-   Linear program: solving $$
+    \min_{\mathbf{z}} \mathbf{c}^T\mathbf{z} \quad{} \text{subject to } A\mathbf{z} = \mathbf{b}, \mathbf{z}\geq 0 
+    $$
+
+-   선형계획 문제를 풀 때는 $\mathbf{z}$ 부분에 해당하는 값이 양수여야 함. 따라서 분위수 회귀문제를 선형계획으로 풀려면 다음과 같이 $\varepsilon_i$를 slack variable을 이용해 양수와 음수 파트로 나눠야 함. $$
+    \varepsilon_i = u_i - v_i
+    $$
+
+    이떄
+
+    -   $u_i= \max(0,\varepsilon_i) = |\varepsilon_i | I[\varepsilon_i \geq 0]$
+    -   $v_i= \max(0,-\varepsilon_i) = |\varepsilon_i | I[\varepsilon_i < 0]$
+
+-   Then $$
+    \sum_{i=1}^n \rho_\tau (\varepsilon_i) = \sum_{i=1}^n \tau u_i + (1-\tau)v_i = \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v}
+    $$
+
+-   Quantile regression objective function (@eq-qr-objective) may be reformulated as a linear program: $$
+    \min_{\boldsymbol{\beta},\mathbf{u},\mathbf{v}} \{ \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v} \vert \mathbf{X}\boldsymbol{\beta} + \mathbf{u}-\mathbf{v} = \mathbf{y}\}
+    $$
+
+```{=html}
+<!--
+flexible regression 58쪽
+-->
+```
+-   알고리즘
+
+    -   Simplex method
+
+    -   Frisch-Newton interior point method
+
+    -   Sparse regression quantile fitting
+
+### R 코드
+
+-   [출처: stackexchange](https://stats.stackexchange.com/questions/384909/formulating-quantile-regression-as-linear-programming-problem)
+
+```{r}
+#| echo: true
+#| message: false
+#| fig-align: center
+#| fig-cap: "Figure: Galton’s dataset"
+#| out-width: 70%
+#| fig-height: 6
+#| fig-weight: 6
+#| view-distance: 10
+
+base=read.table("http://freakonometrics.free.fr/rent98_00.txt",header=TRUE)
+attach(base)
+library(quantreg)
+library(lpSolve)
+tau <- 0.3
+
+
+# Problem (1) only one covariate
+X <- cbind(1,base$area)
+K <- ncol(X)
+N <- nrow(X)
+
+A <- cbind(X,-X,diag(N),-diag(N))
+c <- c(rep(0,2*ncol(X)),tau*rep(1,N),(1-tau)*rep(1,N))
+b <- base$rent_euro
+const_type <- rep("=",N)
+
+linprog <- lp("min",c,A,const_type,b)
+beta <- linprog$sol[1:K] -  linprog$sol[(1:K+K)]
+beta
+rq(rent_euro~area, tau=tau, data=base)
+
+
+# Problem (2) with 2 covariates
+X <- cbind(1,base$area,base$yearc)
+K <- ncol(X)
+N <- nrow(X)
+
+A <- cbind(X,-X,diag(N),-diag(N))
+c <- c(rep(0,2*ncol(X)),tau*rep(1,N),(1-tau)*rep(1,N))
+b <- base$rent_euro
+const_type <- rep("=",N)
+
+linprog <- lp("min",c,A,const_type,b)
+beta <- linprog$sol[1:K] -  linprog$sol[(1:K+K)]
+beta
+rq(rent_euro~ area + yearc, tau=tau, data=base)
+```
+
+## Quantile crossing
+
+-   분위수 회귀는 기본적으로 각 $\tau$에 대해 따로 회귀모형을 적합하는 방식이기 때문에 낮은 $\tau$에서의 조건부 분위수 추정값이 높은 $\tau$에서의 조건부 분위수 추정값보다 높은 역전 현상이 발생할 수도 있는데, 이를 **quantile crossing**이라 함
+
+-   Quantile crossing을 막으려면 한 번에 conditional distribution 전체를 모델링 해야 하고, GAMLSS 등이 그런 방법을 취하고 있으나, 분포가정을 해야 함

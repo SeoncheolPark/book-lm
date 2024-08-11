@@ -1,0 +1,23 @@
+# Gaussian Processes
+
+## Regression analysis
+
+- All finite collection of realizations ($n$ obs) is modeled as having a multivariate normal (MVN) distribution.
+
+- **Mean function**: $\mu (x)$
+
+- **Covariance function**: $\Sigma (x, x')$
+
+- $\Sigma (x, x') = \exp \{ - \| x- x' \|^2 \}$
+
+- $\Sigma (x, x )=1$
+
+- $\Sigma (x, x')$ must be **positive definite**
+
+- $\Sigma_n$: covariance matrix (p.d.)
+
+## Splines vs GP
+
+<!--
+장원교수님 말씀 Spline은 GP의 매우 특수한 형태
+-->

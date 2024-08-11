@@ -1,0 +1,14 @@
+\usepackage{makeidx}
+\makeindex
+\usepackage{titling}
+\usepackage{pdfpages}
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\usepackage{kotex}
+\let\oldmaketitle\maketitle
+\AtBeginDocument{\let\maketitle\relax}
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}} % Discard next blank page
+
+
+
+
+

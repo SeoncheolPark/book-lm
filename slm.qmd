@@ -1,0 +1,103 @@
+# Spatial Linear Models
+
+```{=html}
+<!--
+Spatial linear models 2장
+-->
+```
+
+## Linear Model
+
+-   A **linear model** for a response variable $Y$ postulates that the response is related to the observed values of $p$ explanatory variables $X_1, \ldots, X_p$ via this equation: $$
+    Y = X_1 \beta_1 + X_2 \beta_2 + \cdots + X_p \beta_p + e,
+    $$ where
+
+-   $\beta_1, \ldots, \beta_p$: (unknown) parameters (**coefficients**)
+
+-   $e$: a random variable (**error**)
+
+-   $X_1 \beta_1 + X_2 \beta_2 + \cdots + X_p \beta_p$: mean structure
+
+-   When $n$ obs $(y_1, \pmb{x}_1), \ldots, (y_, \pmb{x}_n)$ are taken on the response and explanatory variables, the linear model as just defined implied that $$
+    y_i = \pmb{x}_i^T \pmb{\beta} + e_i, \quad{} (i=1,\ldots, n)
+    $$ where
+
+-   $\pmb{\beta} = (\beta_1, \ldots, \beta_p)^T$ and $e_1, \ldots, e_n$ are $n$ possibly correlated random variables.
+
+-   Using vector and matrix notations: $$
+    \pmb{y} = \pmb{X \beta} + \pmb{e}.
+    $$
+
+-   $\pmb{e}$: **error vector**
+
+-   $\pmb{\Sigma}$: $\text{Var}(\pmb{e})$
+
+## Spatial Linear Model
+
+-   A **spatial linear model** is defined as a linear model for spatial data for which the elements of $\pmb{\Sigma}$ are spatially structured functions of the data sites
+
+### Spatial Aitken Model
+
+-   The simplest spatial linear model is an extension of the Gauss-Markov model that we call the **spatial Aitken model**: $$
+    \pmb{\Sigma} = \sigma^2 \pmb{R},
+    $$ where
+
+-   $\sigma^2$: an unknown positive parameter and
+
+-   $\pmb{R}$ is a **known** positive definite matrix whose elements are spatially structured functions of the data sites. We refer to $\pmb{R}$ as the **scale-free covariance matrix** of the observations; in some settings, but not all, it is a correlation matrix.
+
+-   Estimation: **generalized least squares (GLS)**
+
+::: {#exm-Aitken}
+## A toy example of a spatial Aitken model
+
+Consider four obs located at the corners of the unit square in $\mathbb{R}^2$, ordered such that the first and last obs are located at opposite corners of the square. Suppose that the model for the obs is given by $$
+\pmb{R} = 
+\begin{pmatrix}
+1 & e^{-1} & e^{-1} & e^{-\sqrt{2}}\\
+e^{-1} & 1 & e^{-\sqrt{2}} & e^{-1}\\
+e^{-1} & e^{-\sqrt{2}} & 1 & e^{-1}\\
+e^{-\sqrt{2}} & e^{-1} & e^{-1} & 1
+\end{pmatrix}
+$$
+:::
+
+-   **Symmetric**
+
+-   **Positive definiteness**: the variance of any linear combinations of obs having this cov matrix, expect the trivial linear combination with all coeffs equal to zero.
+
+## Spatial General Linear Model
+
+-   A more flexible spatial linear model
+
+-   $\pmb{\Sigma}$ is not fully specified but is given by a **known** spatially structured, matrix-valued parametric function $\pmb{\Sigma}(\pmb{\theta})$, where $\pmb{\theta}$ is an **unknown** parameter vector.
+
+-   Joint parameter space for $\pmb{\beta}$ and $\pmb{\theta}$ generally taken to be $$
+    \{ (\pmb{\beta}, \pmb{\theta}): \pmb{\beta} \in \mathbb{R}^p, \pmb{\theta} \in \Theta \subset \mathbb{R}^m \}
+    $$ where
+
+-   $\Theta$: the set of vectors $\pmb{\theta}$ for which $\pmb{\Sigma}(\pmb{\theta})$ is symmetric and positive definite, or possibly some subset of that set.
+
+::: {#rem-Aitken}
+A spatial Aitken model is a special case of a spatial general linear model, with $\pmb{\theta} \equiv \sigma^2$ and $\pmb{R}$ not functionally dependent on any unknown parameters.
+:::
+
+::: {#exm-Aitken2}
+## A toy example of a spatial Aitken model (2)
+
+$$
+\pmb{\Sigma}(\pmb{\theta}) = \sigma^2
+\begin{pmatrix}
+1 & e^{-1/\alpha} & e^{-1/\alpha} & e^{-\sqrt{2}/\alpha}\\
+e^{-1/\alpha} & 1 & e^{-\sqrt{2}/\alpha} & e^{-1/\alpha}\\
+e^{-1/\alpha} & e^{-\sqrt{2}/\alpha} & 1 & e^{-1/\alpha}\\
+e^{-\sqrt{2}/\alpha} & e^{-1/\alpha} & e^{-1/\alpha} & 1
+\end{pmatrix}
+$$
+
+The parameter space for $\pmb{\theta} \equiv (\sigma^2, \alpha)^T$ within which $\pmb{\Sigma}(\pmb{\theta})$ is p.d. is $$
+\{ (\sigma^2, \alpha) : \sigma^2 > 0 , \alpha >0 \}
+$$
+
+Small values of $\alpha$ correspond to weak spatial correlation among the obs, and as $\alpha$ increases the spatial correlation among obs become stronger.
+:::

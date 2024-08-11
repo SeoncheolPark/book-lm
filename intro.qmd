@@ -1,15 +1,16 @@
 # Introduction
 
-- **회귀분석(regression analysis)**: 설명변수와 반응변수 사이의 함수관계를 알아내는 통계적 방법
+-   **회귀분석(regression analysis)**: 설명변수와 반응변수 사이의 함수관계를 알아내는 통계적 방법
 
-- 용어의 역사: Galton의 [`Regression toward the mean` ](https://en.wikipedia.org/wiki/Regression_toward_the_mean)란 말에서부터 유래함
+-   용어의 역사: Galton의 [`Regression toward the mean`](https://en.wikipedia.org/wiki/Regression_toward_the_mean)란 말에서부터 유래함
 
 ## Galton's data
 
+```{=html}
 <!--
 Linear models and extensions, chapter 2
 -->
-
+```
 **Q**. 아버지와 아들 사이의 키 상관관계?
 
 ```{r}

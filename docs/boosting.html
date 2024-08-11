@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>A Biggner’s Guide to Linear Models – 12&nbsp; Summary</title>
+<title>A Biggner’s Guide to Linear Models – 3&nbsp; Boosting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./pca.html" rel="prev">
+<link href="./kernelreg.html" rel="next">
+<link href="./simplereg.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,6 +89,35 @@ MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -135,7 +130,7 @@ MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./summary.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./boosting.html">Nonlinear and Nonparametric Models</a></li><li class="breadcrumb-item"><a href="./boosting.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Boosting</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -214,7 +209,7 @@ MathJax = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./boosting.html" class="sidebar-item-text sidebar-link">
+  <a href="./boosting.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Boosting</span></span></a>
   </div>
 </li>
@@ -303,7 +298,7 @@ MathJax = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link active">
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
@@ -318,15 +313,27 @@ MathJax = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#boosting-개요" id="toc-boosting-개요" class="nav-link active" data-scroll-target="#boosting-개요"><span class="header-section-number">3.1</span> Boosting: 개요</a></li>
+  <li><a href="#adaboost" id="toc-adaboost" class="nav-link" data-scroll-target="#adaboost"><span class="header-section-number">3.2</span> AdaBoost</a></li>
+  <li><a href="#gradient-boosting" id="toc-gradient-boosting" class="nav-link" data-scroll-target="#gradient-boosting"><span class="header-section-number">3.3</span> Gradient boosting</a>
+  <ul class="collapse">
+  <li><a href="#l2-boosting" id="toc-l2-boosting" class="nav-link" data-scroll-target="#l2-boosting"><span class="header-section-number">3.3.1</span> <span class="math inline">\(L^2\)</span> boosting</a></li>
+  <li><a href="#distributional-gradient-boosting" id="toc-distributional-gradient-boosting" class="nav-link" data-scroll-target="#distributional-gradient-boosting"><span class="header-section-number">3.3.2</span> Distributional gradient boosting</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./boosting.html">Nonlinear and Nonparametric Models</a></li><li class="breadcrumb-item"><a href="./boosting.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Boosting</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summary</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Boosting</span></h1>
 </div>
 
 
@@ -343,18 +350,61 @@ MathJax = {
 </header>
 
 
-<p>In summary, this book has no content whatsoever.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="boosting-개요" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="boosting-개요"><span class="header-section-number">3.1</span> Boosting: 개요</h2>
+<ul>
+<li><p>Boosting의 가장 큰 특징: base learner를 sequentially하게 fitting함</p></li>
+<li><p>Base learner로는 weak learner를 사용: tree를 예로 들면 한 번 정도 split한 tree를 base learner로 사용</p></li>
+</ul>
+<p>https://www.uio.no/studier/emner/matnat/math/STK-IN4300/h22/slides/lect10_modified.pdf</p>
+</section>
+<section id="adaboost" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="adaboost"><span class="header-section-number">3.2</span> AdaBoost</h2>
+</section>
+<section id="gradient-boosting" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="gradient-boosting"><span class="header-section-number">3.3</span> Gradient boosting</h2>
+<p>부스팅 공부할 만한 자료: <a href="https://mlcourse.ai/book/topic10/topic10_gradient_boosting.html" class="uri">https://mlcourse.ai/book/topic10/topic10_gradient_boosting.html</a></p>
+<section id="l2-boosting" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="l2-boosting"><span class="header-section-number">3.3.1</span> <span class="math inline">\(L^2\)</span> boosting</h3>
+<ul>
+<li>Reference: <a href="https://mdporter.github.io/DS6030/lectures/boosting.pdf" class="uri">https://mdporter.github.io/DS6030/lectures/boosting.pdf</a></li>
+</ul>
+<div class="cell" data-layout-align="center" data-fig-weight="6" data-view-distance="10">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="boosting_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>L2 boosting</figcaption>
+</figure>
 </div>
 </div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="boosting_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>L2 boosting</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="boosting_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>L2 boosting</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distributional-gradient-boosting" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="distributional-gradient-boosting"><span class="header-section-number">3.3.2</span> Distributional gradient boosting</h3>
+<ul>
+<li><a href="https://ar5iv.labs.arxiv.org/html/2204.00778">Distirbutional gradient boosting</a></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -779,13 +829,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pca.html" class="pagination-link" aria-label="PCA and Least Squares">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">PCA and Least Squares</span></span>
+      <a href="./simplereg.html" class="pagination-link" aria-label="Simple Linear Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./kernelreg.html" class="pagination-link" aria-label="커널회귀">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">커널회귀</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

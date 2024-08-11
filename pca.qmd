@@ -1,0 +1,25 @@
+# PCA and Least Squares
+
+## PCA as least squares problems
+
+<!--
+https://stats.stackexchange.com/questions/529701/pca-vs-least-squares
+-->
+
+PCA can be formulated as follows:
+
+Given $m$ vectors $\pmb{x}_1, \ldots, \pmb{x}_m \in \mathbb{R}^n$, find matrices $\pmb{U} \in \mathcal{M}_{\mathbb{R}} (k,n)$ and $\pmb{V} \in \mathcal{M}_{\mathbb{R}}(n,k)$ such that
+$$
+\sum_{i=1}^m \| \pmb{x}_i - \pmb{V}\pmb{U}\pmb{x}_i\|^2
+$$
+is minimized.
+
+That is, for $k<n$, the vector $\pmb{U}\pmb{x}_i \in \mathbb{R}^k$ is the projection of $\pmb{x}_i$ into a lower-dimensional subspace, and $\pmb{V}\pmb{U}\pmb{x}_i$ is the **reconstructed** original vector. PCA aims to find matrices $\pmb{U}$, $\pmb{V}$ that minimize the reconstruction error as measured by the $\ell^2$-norm. It can be shown that, in fact, these matrices are orthogonal and $\pmb{U} = \pmb{V}^T$, so the problem reduces to
+$$
+\arg\min_{V\in \mathcal{M}_{\mathbb{R}}(n,k)}\sum_{i=1}^m \| \pmb{x}_i - \pmb{V}\pmb{V}^T \pmb{x}_i \|^2
+$$
+Further manipulations show that $\pmb{V}$ is the matrix whose columns are the eigenvectors corresponding to the $k$ largest eigenvalues of
+$$
+\sum_{i=1}^m \pmb{x}_i \pmb{x}_i^T
+$$
+as expected. So indeed, PCA is a least squares method and it is quite sensitive to outliers.
