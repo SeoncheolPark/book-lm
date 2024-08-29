@@ -5,8 +5,7 @@
 Spatial linear models 2장
 -->
 ```
-
-- Reference: [Spatial Linear Models for Environmental Data](https://www.routledge.com/Spatial-Linear-Models-for-Environmental-Data/Zimmerman-VerHoef/p/book/9780367183349)
+-   Reference: [Spatial Linear Models for Environmental Data](https://www.routledge.com/Spatial-Linear-Models-for-Environmental-Data/Zimmerman-VerHoef/p/book/9780367183349)
 
 ## Linear Model
 

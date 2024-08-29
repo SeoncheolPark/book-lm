@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.36">
+<meta name="generator" content="quarto-1.5.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -365,6 +365,7 @@ window.Quarto = {
 </header>
 
 
+<p>기본적인 내용은 <span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> 를 따른다.</p>
 <div id="thm-rss" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 7.1 (Random sampling assumption (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Definition 1.2))</strong></span> The variables <span class="math inline">\((Y_i, X_i)\)</span> are a <strong>random sample</strong> if they are mutually independent and identically distributed (i.i.d.) across <span class="math inline">\(i=1,\ldots, n\)</span>.</p>
 </div>
@@ -408,17 +409,17 @@ https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 \hat{\beta} = \Big(\frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1} \Big(\frac{1}{n}\sum_{i=1}^n X_i Y_i \Big) = \hat{Q}_{XX}^{-1}\hat{Q}_{XY}
 \]</span></p>
 <p><span class="math inline">\((Y_i, X_i)\)</span>가 mutually i.i.d. 라는 가정은 <span class="math inline">\((Y_i, X_i)\)</span>로 구성된, 예를 들면 <span class="math inline">\(X_i X_i^{T}\)</span>와 <span class="math inline">\(X_i Y_i\)</span>가 i.i.d.임을 의미한다. 이들은 또한 앞선 Assumption 7.1에 의해 finite expectation을 갖는다. 이러한 조건 하에서, <span class="math inline">\(n\rightarrow \infty\)</span>일 때 WLLN은</p>
-<p><span class="math display">\[
+<p><span id="eq-Hansen0701"><span class="math display">\[
 \hat{Q}_{XX} = \frac{1}{n}\sum_{i=1}^n X_i X_i^{T} \stackrel{p}{\rightarrow} E[XX^T] = Q_{XX}, \quad{} \hat{Q}_{XY} = \frac{1}{n}\sum_{i=1}^n X_i Y_i\stackrel{p}{\rightarrow} E[XY] = Q_{XY}.
-\]</span></p>
+\tag{7.1}\]</span></span></p>
 <p>그 다음 continuous mapping theorem을 써서 <span class="math inline">\(\hat{\beta} \rightarrow \beta\)</span>임을 보일 수 있다는 것이다. <span class="math inline">\(n\rightarrow \infty\)</span>일 때,</p>
 <p><span class="math display">\[
 \hat{\beta} = \hat{Q}_{XX} ^{-1}\hat{Q}_{XY} \stackrel{p}{\rightarrow}Q_{XX}^{-1}Q_{XY} = \beta.
 \]</span></p>
 <p>Stochastic order notation으로 다음과 같이 쓸 수 있다.</p>
-<p><span class="math display">\[
+<p><span id="eq-Hansen0704"><span class="math display">\[
 \hat{\beta} = \beta + o_p (1).
-\]</span></p>
+\tag{7.2}\]</span></span></p>
 </section>
 <section id="asymptotic-normality" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="asymptotic-normality"><span class="header-section-number">7.2</span> Asymptotic Normality</h2>
@@ -428,9 +429,10 @@ https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 <li>그리고 그것들 중 하나가 zero-mean random vector의 sum으로 표현될 수 있고 이는 CLT를 적용 가능케 한다.</li>
 </ol>
 <p>우선 <span class="math inline">\(\hat{\beta}- \beta = \hat{Q}_{XX}^{-1}\hat{Q}_{Xe}\)</span>라고 두자. 그리고 이를 <span class="math inline">\(\sqrt{n}\)</span>에 곱하면 다음 표현을 얻을 수 있다.</p>
-<p><span class="math display">\[
+<p><span id="eq-Hansen0705"><span class="math display">\[
 \sqrt{n}(\hat{\beta} - \beta) = \Big( \frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1} \Big(\frac{1}{\sqrt{n} }\sum_{i=1}^n X_i e_i \Big).
-\]</span>즉 normalized and centered estimator <span class="math inline">\(\sqrt{n}(\hat{\beta} - \beta)\)</span>는 (1) sample average의 함수 <span class="math inline">\(\Big( \frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1}\)</span>과 normalized sample average <span class="math inline">\(\Big(\frac{1}{\sqrt{n} }\sum_{i=1}^n X_i e_i \Big)\)</span>의 곱으로 쓸 수 있다.</p>
+\tag{7.3}\]</span></span></p>
+<p>즉 normalized and centered estimator <span class="math inline">\(\sqrt{n}(\hat{\beta} - \beta)\)</span>는 (1) sample average의 함수 <span class="math inline">\(\Big( \frac{1}{n}\sum_{i=1}^n X_i X_i^T \Big)^{-1}\)</span>과 normalized sample average <span class="math inline">\(\Big(\frac{1}{\sqrt{n} }\sum_{i=1}^n X_i e_i \Big)\)</span>의 곱으로 쓸 수 있다.</p>
 <p>그러면 뒷부분은 <span class="math inline">\(E[Xe]=0\)</span>이고 이것의 <span class="math inline">\(k\times k\)</span> 공분산함수를 다음과 같이 둘 수 있다. <span class="math display">\[
 \Omega = E[(Xe)(Xe)^T] = E[XX^T e^2].
 \]</span> 그리고 아래 가정에서처럼 <span class="math inline">\(\Omega &lt;\infty\)</span>라는 가정 하에 <span class="math inline">\(X_i e_i\)</span>는 i.i.d. mean zero, 유한한 분산을 갖고 CLT에 의해 <span class="math display">\[
@@ -443,13 +445,66 @@ https://sites.calvin.edu/scofield/courses/m355/handouts/definiteMatrices.pdf
 <li><span class="math inline">\(E\|X\|^4 &lt;\infty\)</span>.</li>
 <li><span class="math inline">\(Q_{XX} = E[XX^{T}]\)</span> is positive definite.</li>
 </ol>
-<p><span class="math inline">\(\Omega &lt;\infty\)</span>임을 보이려면 <span class="math inline">\(jl\)</span>번째 원소 <span class="math inline">\(E[X_jX_le^2]\)</span>이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Theorem 2.9.6) (If <span class="math inline">\(E|Y|^r &lt;\infty\)</span> and <span class="math inline">\(E|X|^r &lt;\infty\)</span> for <span class="math inline">\(r\geq 2\)</span>, then <span class="math inline">\(E|e|^r &lt;\infty\)</span>)을 이용해 위의 2, 3번 조건에 의해 <span class="math inline">\(E[e^4]&lt;\infty\)</span>임을 보일 수 있다. 그러면 expectation inequality에 의해 <span class="math inline">\(\Omega\)</span>의 <span class="math inline">\(jl\)</span>번째 원소는 다음과 같이 bounded된다. <span class="math display">\[
+<p>여기서 두 번째 조건이 <span class="math inline">\(\Omega &lt;\infty\)</span>임을 의미한다. <span class="math inline">\(\Omega &lt;\infty\)</span>임을 보이려면 <span class="math inline">\(jl\)</span>번째 원소 <span class="math inline">\(E[X_jX_le^2]\)</span>이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (<span class="citation" data-cites="Hansen2022">Hansen (<a href="references.html#ref-Hansen2022" role="doc-biblioref">2022</a>)</span> Theorem 2.9.6) (If <span class="math inline">\(E|Y|^r &lt;\infty\)</span> and <span class="math inline">\(E|X|^r &lt;\infty\)</span> for <span class="math inline">\(r\geq 2\)</span>, then <span class="math inline">\(E|e|^r &lt;\infty\)</span>)을 이용해 위의 2, 3번 조건에 의해 <span class="math inline">\(E[e^4]&lt;\infty\)</span>임을 보일 수 있다. 그러면 expectation inequality에 의해 <span class="math inline">\(\Omega\)</span>의 <span class="math inline">\(jl\)</span>번째 원소는 다음과 같이 bounded된다. <span class="math display">\[
 |E[X_jX_le^2]|\leq E|X_jX_le^2| = E[|X_j||X_l|e^2].
+\]</span> Cauchy-Schwarz 부등식을 적용하면 다음과 같다. <span class="math display">\[
+(E[X_j^2 X_\ell^2])^{1/2} (E[e^4])^{1/2} \leq (E[X_j^4])^{1/4}(E[X_{\ell}^4])^{1/4}(E[e^4])^{1/2}&lt;\infty.
 \]</span></p>
-<p>Stochastic order notation으로 다음과 같이 쓸 수 있다.</p>
-<p><span class="math display">\[
+<div id="thm-finitecov" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7.3</strong></span> 앞선 가정은 <span class="math display">\[
+\Omega &lt;\infty
+\]</span> 를 내포하고 <span id="eq-Hansen0707"><span class="math display">\[
+\frac{1}{\sqrt{n}} \sum_{i=1}^n X_i e_i \stackrel{d}{\rightarrow} \mathcal{N}(0,\Omega)
+\tag{7.4}\]</span></span> as <span class="math inline">\(n\rightarrow \infty\)</span>.</p>
+</div>
+<p>식 <a href="#eq-Hansen0701" class="quarto-xref">Equation&nbsp;<span>7.1</span></a> , <a href="#eq-Hansen0705" class="quarto-xref">Equation&nbsp;<span>7.3</span></a> , <a href="#eq-Hansen0707" class="quarto-xref">Equation&nbsp;<span>7.4</span></a> 을 함께 쓰면 다음과 같다. <span class="math display">\[
+\sqrt{n}(\hat{\beta}-\beta) \stackrel{d}{\rightarrow} \mathbf{Q}_{XX}^{-1}\mathcal{N}(0,\Omega) = \mathcal{N}(0, \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}) \quad{} \text{as } n\rightarrow\infty.
+\]</span> 여기서 마지막 등식은 normal vector의 linear combination이 normal이라는 것에서부터 왔다.</p>
+<div id="thm-asymnormalls" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7.4 (Asymptotic normality of least squares estimator)</strong></span> 앞선 가정 하에서, <span class="math inline">\(n\rightarrow\infty\)</span>일 때 <span class="math display">\[
+\sqrt{n}(\hat{\beta} - \beta) \stackrel{d}{\rightarrow}\mathcal{N}(0, \mathbf{V}_{\beta})
+\]</span> where <span class="math inline">\(\mathbf{Q}_{XX} = E[XX^T]\)</span>, <span class="math inline">\(\Omega = E[XX^T e^2]\)</span>, and <span class="math display">\[
+\mathbf{V}_{\beta} = \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}.
+\]</span></p>
+</div>
+<p>Stochastic order notation으로 다음과 같이 쓸 수 있다. <span class="math display">\[
 \hat{\beta} = \beta + O_p(n^{-1/2}).
-\]</span></p>
+\]</span> 이는 식 <a href="#eq-Hansen0704" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> 보다 더 강한 조건이라고 한다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>원래 <span class="math inline">\(o_p\)</span>가 더 강한조건이긴 하나 order의 차이가 나서 저렇게 말하는 듯</li>
+</ul>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\mathbf{V}_{\beta}\)</span>: <strong>asymptotic covariance matrix</strong> of <span class="math inline">\(\hat{\beta}\)</span>, <span class="math display">\[
+\mathbf{V}_{\beta} = \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}
+\]</span> 이며 <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\)</span>의 asymptotic distribution의 variance</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="math inline">\(\mathbf{V}_{\beta}\)</span>의 형태를 보면 <span class="math inline">\(\Omega\)</span>가 <span class="math inline">\(\mathbf{Q}_{XX}^{-1}\)</span> 사이에 끼어있는 형태이므로 <strong>sandwich</strong> form이라고 부름</li>
+</ul>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

@@ -15,3 +15,27 @@ $$
 $$
 \psi_{\tau} (x) = \frac{d}{dx}\rho_{\tau}(x) = \tau - I \{x < 0\}, \quad{} x\neq 0.
 $$
+
+::: {#thm-consistencyqr}
+
+## Consistency of quantile regression estimator
+
+Assume that $(Y_i, X_i)$ are i.i.d., $E\vert Y\vert <\infty$, $E[\| X\|^2] <\infty$, $f_{\tau} (e \vert x)$ exists and satisfies $f_{\tau}(e\vert x) \leq D < \infty$, and the parameter space for $\beta$ is compact. For any $\tau \in (0,1)$ such that
+$$
+\mathbf{Q}_{\tau} \stackrel{\text{def}}{=} E[XX^T f_{\tau}(0|X)]>0
+$$
+then $\hat{\beta}_{\tau} \stackrel{p}{\rightarrow} \beta_{\tau}$ as $n\rightarrow\infty$.ㄴ
+
+:::
+
+::: {#thm-asympdistnqr}
+
+## Asymptotic distribution of quantile regression estimator
+
+In addition to the assumptions of @thm-consistencyqr , assume that $f_{\tau}(e\vert x)$ is continuous in $e$, and $\beta_{\tau}$ is in the interior of the parameter space. Then as $n\rightarrow \infty$
+$$
+\sqrt{n}(\hat{\beta}_{\tau} - \beta_{\tau}) \stackrel{d}{\rightarrow} \mathcal{N}(0,\mathbf{V}_{\tau})
+$$
+where $\mathbf{V}_{\tau} = \mathbf{Q}_{\tau}^{-1}\Omega_{\tau} \mathbf{Q}_{\tau}^{-1}$ and $Q_{\tau} = E[XX^T \psi_{\tau}^2]$ for $\psi_{\tau} = \tau - I\{Y<X^T\beta_{\tau}\}$.
+
+:::
