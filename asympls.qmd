@@ -3,13 +3,13 @@
 기본적인 내용은 @Hansen2022 를 따른다.
 
 ::: {#thm-rss}
-## Random sampling assumption (@Hansen2022 Definition 1.2)
+## Random sampling assumption 
 
 The variables $(Y_i, X_i)$ are a **random sample** if they are mutually independent and identically distributed (i.i.d.) across $i=1,\ldots, n$.
 :::
 
 ::: {#thm-blp}
-## Best linear predictor 관련 assumption (@Hansen2022 Assumption 2.1)
+## Best linear predictor 관련 assumption 
 
 1.  $E[Y^2]<\infty$
 2.  $E\|X\|^2 < \infty$
@@ -103,68 +103,48 @@ $$
 
 여기서 두 번째 조건이 $\Omega <\infty$임을 의미한다. $\Omega <\infty$임을 보이려면 $jl$번째 원소 $E[X_jX_le^2]$이 유한함을 보이면 될 것이다. Properties of Linear Projection Model (@Hansen2022 Theorem 2.9.6) (If $E|Y|^r <\infty$ and $E|X|^r <\infty$ for $r\geq 2$, then $E|e|^r <\infty$)을 이용해 위의 2, 3번 조건에 의해 $E[e^4]<\infty$임을 보일 수 있다. 그러면 expectation inequality에 의해 $\Omega$의 $jl$번째 원소는 다음과 같이 bounded된다. $$
 |E[X_jX_le^2]|\leq E|X_jX_le^2| = E[|X_j||X_l|e^2].
-$$
-Cauchy-Schwarz 부등식을 적용하면 다음과 같다.
-$$
+$$ Cauchy-Schwarz 부등식을 적용하면 다음과 같다. $$
 (E[X_j^2 X_\ell^2])^{1/2} (E[e^4])^{1/2} \leq (E[X_j^4])^{1/4}(E[X_{\ell}^4])^{1/4}(E[e^4])^{1/2}<\infty.
 $$
 
 ::: {#thm-finitecov}
-
-앞선 가정은
-$$
+앞선 가정은 $$
 \Omega <\infty
-$$
-를 내포하고
-$$
+$$ 를 내포하고 $$
 \frac{1}{\sqrt{n}} \sum_{i=1}^n X_i e_i \stackrel{d}{\rightarrow} \mathcal{N}(0,\Omega)
-$$ {#eq-Hansen0707}
-as $n\rightarrow \infty$.
-
+$$ {#eq-Hansen0707} as $n\rightarrow \infty$.
 :::
 
-식 @eq-Hansen0701 , @eq-Hansen0705 , @eq-Hansen0707 을 함께 쓰면 다음과 같다.
-$$
+식 @eq-Hansen0701 , @eq-Hansen0705 , @eq-Hansen0707 을 함께 쓰면 다음과 같다. $$
 \sqrt{n}(\hat{\beta}-\beta) \stackrel{d}{\rightarrow} \mathbf{Q}_{XX}^{-1}\mathcal{N}(0,\Omega) = \mathcal{N}(0, \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}) \quad{} \text{as } n\rightarrow\infty. 
-$$
-여기서 마지막 등식은 normal vector의 linear combination이 normal이라는 것에서부터 왔다.
+$$ 여기서 마지막 등식은 normal vector의 linear combination이 normal이라는 것에서부터 왔다.
 
 ::: {#thm-asymnormalls}
-
 ## Asymptotic normality of least squares estimator
 
-앞선 가정 하에서, $n\rightarrow\infty$일 때
-$$
+앞선 가정 하에서, $n\rightarrow\infty$일 때 $$
 \sqrt{n}(\hat{\beta} - \beta) \stackrel{d}{\rightarrow}\mathcal{N}(0, \mathbf{V}_{\beta})
-$$
-where $\mathbf{Q}_{XX} = E[XX^T]$, $\Omega = E[XX^T e^2]$, and
-$$
+$$ where $\mathbf{Q}_{XX} = E[XX^T]$, $\Omega = E[XX^T e^2]$, and $$
 \mathbf{V}_{\beta} = \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}.
 $$
-
 :::
 
-Stochastic order notation으로 다음과 같이 쓸 수 있다.
-$$
+Stochastic order notation으로 다음과 같이 쓸 수 있다. $$
 \hat{\beta} = \beta + O_p(n^{-1/2}).
-$$
-이는 식 @eq-Hansen0704 보다 더 강한 조건이라고 한다.
+$$ 이는 식 @eq-Hansen0704 보다 더 강한 조건이라고 한다.
 
 ::: callout-tip
 ## Remark
 
-- 원래 $o_p$가 더 강한조건이긴 하나 order의 차이가 나서 저렇게 말하는 듯
+-   원래 $o_p$가 더 강한조건이긴 하나 order의 차이가 나서 저렇게 말하는 듯
 :::
 
-- $\mathbf{V}_{\beta}$: **asymptotic covariance matrix** of $\hat{\beta}$,
-$$
-\mathbf{V}_{\beta} = \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}
-$$
-이며 $\sqrt{n}(\hat{\beta}-\beta)$의 asymptotic distribution의 variance
+-   $\mathbf{V}_{\beta}$: **asymptotic covariance matrix** of $\hat{\beta}$, $$
+    \mathbf{V}_{\beta} = \mathbf{Q}_{XX}^{-1}\Omega \mathbf{Q}_{XX}^{-1}
+    $$ 이며 $\sqrt{n}(\hat{\beta}-\beta)$의 asymptotic distribution의 variance
 
 ::: callout-tip
 ## Remark
 
-- $\mathbf{V}_{\beta}$의 형태를 보면 $\Omega$가 $\mathbf{Q}_{XX}^{-1}$ 사이에 끼어있는 형태이므로 **sandwich** form이라고 부름
+-   $\mathbf{V}_{\beta}$의 형태를 보면 $\Omega$가 $\mathbf{Q}_{XX}^{-1}$ 사이에 끼어있는 형태이므로 **sandwich** form이라고 부름
 :::
-

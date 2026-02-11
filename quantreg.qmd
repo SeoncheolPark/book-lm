@@ -53,10 +53,10 @@ Koenker page 32
     $$ {#eq-qr-objective}
 
 -   Directional derivative of $R$ in direction $w$: $$
-    \begin{align*}
+    \begin{aligned}
     \nabla R(\boldsymbol{\beta}, w) &= \frac{d}{dt} R(\boldsymbol{\beta}+ t w) \vert_{t=0}\\
     &=\frac{d}{dt}
-    \end{align*}
+    \end{aligned}
     $$
 
 ## Quantile regression as a linear programming
@@ -83,9 +83,10 @@ https://stats.stackexchange.com/questions/384909/formulating-quantile-regression
 -   Then $$
     \sum_{i=1}^n \rho_\tau (\varepsilon_i) = \sum_{i=1}^n \tau u_i + (1-\tau)v_i = \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v}
     $$
+여기에서 $\mathbf{u} = (u_1, \ldots, u_n)^T$, $\mathbf{v} = (v_1,\ldots, v_n)^T$이다.
 
 -   Quantile regression objective function (@eq-qr-objective) may be reformulated as a linear program: $$
-    \min_{\boldsymbol{\beta},\mathbf{u},\mathbf{v}} \{ \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v} \vert \mathbf{X}\boldsymbol{\beta} + \mathbf{u}-\mathbf{v} = \mathbf{y}\}
+    \min_{\boldsymbol{\beta},\mathbf{u},\mathbf{v}} \{ \tau \mathbf{1}_n^T \mathbf{u} + (1-\tau)\mathbf{1}_n^T \mathbf{v} \vert \mathbf{y}=\mathbf{X}\boldsymbol{\beta} + \mathbf{u}-\mathbf{v}\}
     $$
 
 ```{=html}
@@ -105,7 +106,8 @@ flexible regression 58쪽
 
 -   [출처: stackexchange](https://stats.stackexchange.com/questions/384909/formulating-quantile-regression-as-linear-programming-problem)
 
-```{r}
+<!--
+#```{r}
 #| echo: true
 #| message: false
 #| fig-align: center
@@ -152,7 +154,8 @@ linprog <- lp("min",c,A,const_type,b)
 beta <- linprog$sol[1:K] -  linprog$sol[(1:K+K)]
 beta
 rq(rent_euro~ area + yearc, tau=tau, data=base)
-```
+#```
+-->
 
 ## Quantile crossing
 

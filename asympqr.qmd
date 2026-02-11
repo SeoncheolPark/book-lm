@@ -24,7 +24,7 @@ Assume that $(Y_i, X_i)$ are i.i.d., $E\vert Y\vert <\infty$, $E[\| X\|^2] <\inf
 $$
 \mathbf{Q}_{\tau} \stackrel{\text{def}}{=} E[XX^T f_{\tau}(0|X)]>0
 $$
-then $\hat{\beta}_{\tau} \stackrel{p}{\rightarrow} \beta_{\tau}$ as $n\rightarrow\infty$.ㄴ
+then $\hat{\beta}_{\tau} \stackrel{p}{\rightarrow} \beta_{\tau}$ as $n\rightarrow\infty$.
 
 :::
 

@@ -11,6 +11,7 @@
 Linear models and extensions, chapter 2
 -->
 ```
+
 **Q**. 아버지와 아들 사이의 키 상관관계?
 
 ```{r}
@@ -29,3 +30,9 @@ yy = GaltonFamilies$childHeight
 
 plot(xx, yy, xlab="Father", ylab="Child", main="Galton's data")
 ```
+
+::: {#def-test}
+## 테스트용
+
+테스트 정의이다.
+:::

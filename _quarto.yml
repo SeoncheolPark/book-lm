@@ -3,7 +3,7 @@ project:
   output-dir: docs
   
 book:
-  title: "A Biggner’s Guide to Linear Models"
+  title: "A Beginner’s Guide to Linear Models"
   author: "Seoncheol Park"
   date: today
   search: true
@@ -65,27 +65,305 @@ format:
         };
         </script>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-  pdf:
-    documentclass: scrreprt
-    mainfont: "Noto Sans KR"
-    filters:
-      - watermark
-    watermark:
-      text: "Seoncheol Park"
-    include-in-header: preamble.tex
-    include-before-body:
+  typst:
+#    mainfont: "Linux Libertine"
+#    sansfont: "Arial"
+#    monofont: "Fira Code"
+    keep-typ: true
+    include-in-header:
       text: |
-        \renewcommand{\Return}{\State \textbf{return}~}
-        \newcommand{\Print}{\State \textbf{print}~}
-        \newcommand{\Break}{\State \textbf{break}}
-        \newcommand{\Continue}{\State \textbf{continue}}
-        \newcommand{\True}{\textbf{true}}
-        \newcommand{\False}{\textbf{false}}
-        \renewcommand{\And}{\textbf{and}~}
-        \newcommand{\Or}{\textbf{or}~}
-        \renewcommand{\Not}{\textbf{not}~}
-        \newcommand{\To}{\textbf{to}~}
-        \newcommand{\DownTo}{\textbf{downto}~}
+        #show heading: set text(font: ("Pretendard", "Helvetica", "IBM Plex Sans", "IBM Plex Sans KR"), weight: "bold")
+        #set text(font: ("IBM Plex Sans", "IBM Plex Sans KR"))
+        #show raw: it => {
+          set text(
+            font: ("Monoplex KR", "IBM Plex Mono"),
+          )
+          it
+        }
+        #set page(background: rotate(24deg,
+          text(72pt, fill: gray)[
+            *Seoncheol Park*
+          ]
+        ))
         
+    include-before-body: 
+      text: |
+        #import "@preview/thmbox:0.2.0": *
+        #show: thmbox-init(counter-level: 1)
+        #let default-color = rgb("#0E4A84")
+        #let supp-color = rgb("898C8E").lighten(75%)
+        #let h-color = default-color.lighten(75%)
+        #let b-color = default-color.lighten(85%)
+        
+        /*colors for theorem*/
+        #let dark-red = rgb("#C5283D") // theorem
+        #let orange = rgb("#ff851b") // definition
+        #let lime = rgb("#8dc159") // example
+        #let green = rgb("#4a9952") // claim
+        #let light-turquoise = rgb("#90c6b7") // lemma
+        #let turquoise = rgb("#118d8d") // note
+        #let light-aqua = rgb("#68b3ff") // exercise
+        #let aqua = rgb("#3fa1d2") // axiom
+        #let blue = rgb("#3988d7") // (내가) proof
+        #let light-blue = rgb("#5f83d2") // proposition
+        #let dark-blue = rgb("#11388d") //(내가) solution
+        #let purple = rgb("#66118d") // algorithm
+        #let pink = rgb("#c34dd1") // corollary
+        #let gray = rgb("#797979") // remark
+        #let dark-gray = rgb("#575757") // conjecture
+        
+        #let proof(
+          title: translations.variant("proof"),
+          separator: ".",
+          body: [],
+          ..args
+        ) = {
+          // set values
+          let pa = args.pos()
+          let num-pas = pa.len()
+          let title = if num-pas == 2 [#translations.variant("proof") #pa.at(0)] else {title}
+          let body = if num-pas > 0 and num-pas <= 3 {pa.at(num-pas - 1)} else {body}
+        
+          [
+            #set text(style: "oblique", weight: "regular")
+            #title;#separator
+          ] 
+          [#body #qed()]
+        }
+        
+        #let remark(
+          title: translations.variant("remark"),
+          separator: ".",
+          body: [],
+          ..args
+        ) = {
+          // set values
+          let pa = args.pos()
+          let num-pas = pa.len()
+          let title = if num-pas == 2 [#translations.variant("remark") #pa.at(0)] else {title}
+          let body = if num-pas > 0 and num-pas <= 3 {pa.at(num-pas - 1)} else {body}
+        
+          [
+            #set text(style: "oblique", weight: "regular")
+            #title;#separator
+          ] 
+          [#body]
+        }
+        
+        /// Used for theorems, uses a dark red color by default.
+        #let theorem = thmbox.with(
+          color: colors.dark-red, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("theorem"))
+        /// Used for propositions, uses a light blue color by default.
+        #let proposition = thmbox.with(
+          color: colors.light-blue, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("proposition"))
+        /// Used for lemmas, uses a light turquoise color by default.
+        #let lemma = thmbox.with(
+          color: colors.light-turquoise, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("lemma"))
+        /// Used for corollaries, uses a pink color by default.
+        #let corollary = thmbox.with(
+          color: colors.pink, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("corollary"))
+        /// Used for definitions, uses an orange color by default.
+        #let definition = thmbox.with(
+          color: colors.orange, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("definition"))
+        /// Used for examples, uses a lime color and is not numbered by default.
+        #let example = thmbox.with(
+          color: colors.lime, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("example"), 
+          //numbering: none, 
+          //sans: false,
+        )
+        /// Used for notes, uses a turquoise color and is not numbered by default.
+        #let note = thmbox.with(
+          color: colors.turquoise, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("note"), 
+          //numbering: none, 
+          //sans: false,
+        )
+        /// Used for exercises, uses a blue color by default.
+        #let exercise = thmbox.with(
+          color: colors.light-aqua, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("exercise"),
+          //numbering: none,
+          //sans: false,
+        )
+        /// Used for algorithms, uses a purple color by default.
+        #let algorithm = thmbox.with(
+          color: colors.purple, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("algorithm"), 
+          //sans: false,
+        )
+        /// Used for claims, uses a green color and is not numbered by default.
+        #let claim = thmbox.with(
+          color: colors.green, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("claim"), 
+          numbering: none,
+        )
+        /// Used for axioms, uses an aqua color by default.
+        #let axiom = thmbox.with(
+          color: colors.aqua, 
+          sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+          variant: translations.variant("axiom")
+        )
+        /// Used for remarks, uses a gray color and is not numbered by default.
+        #let remark = remark.with(
+            color: colors.gray, 
+            sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            title: "Remark", 
+            numbering: none, 
+            //sans: false,
+        )
+        // derive from some predefined function
+        #let solution = proof.with(
+            //fill: rgb("#ffdcdc"), 
+            title: "Solution", 
+            color: dark-blue,
+            sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            //title-fonts: "Noto Sans",
+            numbering: none
+        )
+        #let proof = proof.with(
+            //fill: rgb("#ffdcdc"), 
+            variant: translations.variant("proof"), 
+            color: blue,
+            sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            numbering: none,
+            //bar-thickness: 3pt,
+            //fill: yellow.lighten(100%),
+            //title-font: "Noto Sans",
+            inset: (x: 0pt, y: 0em)
+        )
+        #let assumption = thmbox.with(
+            //fill: rgb("#ffdcdc"), 
+            variant: "Assumption", 
+            color: dark-gray,
+            sans-fonts: ("IBM Plex Sans", "IBM Plex Sans KR"),
+            title-fonts: ("IBM Plex Sans", "IBM Plex Sans KR")
+        )
+        
+        #let code(
+          code,
+          lang: "py",
+          font-size: 9pt,
+          border-size: 0.13em,
+          border-color: luma(170),
+          line-color-1: luma(250),
+          line-color-2: luma(240),
+          lines: none,
+          line-numbers: false,
+          line-number-color: luma(130),
+        ) = {
+        
+          // Filter code to only include specified lines
+          let start-line = if lines != none { lines.at(0) } else { 1 }
+          let code = if lines != none {
+            let code-lines = code.split("\n")
+            let start = lines.at(0) - 1  // Convert to 0-indexed
+            let end = lines.at(1)
+            code-lines.slice(start, end).join("\n")
+          } else {
+            code
+          }
+        
+          // Change how raw.line looks
+          show raw.line: line => {
+        
+            // Constants
+            let first-line-num = 1
+            let last-line-num = line.count
+        
+            let inset-y = font-size/4
+            let line-height = 2*inset-y + font-size
+        
+            let stroke = border-color + border-size
+        
+            let get-stroke(line-num) = {
+                   if line-num == first-line-num { return (   top: stroke, x: stroke) }
+              else if line-num == last-line-num  { return (bottom: stroke, x: stroke) }
+              else { return (x: stroke) }
+            }
+        
+            let get-radius(line-num) = {
+                   if line-num == first-line-num { return (   top: 1em) }
+              else if line-num == last-line-num  { return (bottom: 1em) }
+              else { return (0em) }
+            }
+        
+            let get-fill(line-num) = {
+              if calc.even(line-num) { return line-color-2 }
+              else { return line-color-1 }
+            }
+        
+            let display-line-num = line.number + start-line - 1
+            let line-num-width = 2.5em
+        
+            block(
+              breakable: false,
+              height: line-height,
+              width: 100%,
+              inset: (x: inset-y*2, y: inset-y),
+              fill: get-fill(line.number),
+              radius: get-radius(line.number),
+              stroke: get-stroke(line.number),
+              spacing: -0.4em,
+              if line-numbers {
+                grid(
+                  columns: (line-num-width, 1fr),
+                  text(size: font-size, fill: line-number-color)[#display-line-num],
+                  text(size: font-size)[#line.body],
+                )
+              } else {
+                text(size: font-size)[#line.body]
+              }
+            )
+          }
+        
+          // Display raw content using custom design defined above
+          v(2*0.4em) // Compensate for spacing: -0.4em
+          raw(code, lang: lang)
+          v(2*0.4em)
+        }
+        
+        //https://github.com/typst/typst/discussions/4031
+        #let appendix(body) = {
+          set heading(numbering: "A", supplement: [Appendix])
+          body
+        }
+        
+webr:
+  packages:
+  - tidyverse
+  - palmerpenguins
+  - ggplot2
+
+engine: knitr
 editor: visual
 

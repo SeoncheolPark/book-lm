@@ -105,10 +105,8 @@ Understanding deep learning book
 \max_{\alpha} \sum_i \alpha_i - \frac{1}{2}\sum_i \sum_j \alpha_i \alpha_j y_i y_j \pmb{x}_i^T\pmb{x}_j ,\quad{} \text{s.t. } \sum_{i} \alpha_i y_i = 0.
 $$ 이 objective 함수 안에는 dot product $\pmb{x}_i^T\pmb{x}_j$가 들어 있고 kernel trick을 쓸 수 있어 SVM이 강력해진다.
 
+![Figure: Example of a labeled data inseparable in 2-Dim is separable in 3-Dim.](images/kernel_ktrick01.png){#fig-kernelreg01}
 
-```{r pressure, echo=FALSE, fig.cap="Figure: Example of a labeled data inseparable in 2-Dim is separable in 3-Dim.", out.width = '100%'}
-knitr::include_graphics("images/kernel_ktrick01.png")
-```
 
 위 그림에서, 원래 자료 $\pmb{x} = \{x_1, x_2\}$는 2차원에 있는데 이것은 inseparable 하지만 변환 $$
 \Phi (\pmb{x}) \rightarrow (x_1^2, x_2^2, \sqrt{2}x_1x_2)
